@@ -32,7 +32,7 @@ class Profilenav extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'أحمد إدريس',
+                        'محمد إدريس',
                         style: TextStyle(
                           fontSize: 22,
                           color: Colors.white,
