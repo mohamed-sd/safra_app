@@ -14,15 +14,39 @@ class Booksnav extends StatelessWidget {
     Tab(text: 'أخرى'),
   ];
 
-  final List<IconData> icons = [
-    Icons.book_online,       // جميع الحجوزات
-    Icons.flight,            // طيران
-    Icons.train,             // قطار
-    Icons.hotel,             // فندق
-    Icons.directions_bus,    // أوتوبيس
-    Icons.beach_access,      // يوم الإجازة
-    Icons.home,              // الإقامة
-    Icons.more_horiz,        // أخرى
+  final List<Image> icons = [
+    Image.asset(
+      'assets/book.png',
+      height: 40,
+    ),       // جميع الحجوزات
+    Image.asset(
+      'assets/homeHead/ic_flight.png',
+      height: 40,
+    ),           // طيران
+    Image.asset(
+      'assets/homeHead/ic_train.png',
+      height: 40,
+    ),           // قطار
+    Image.asset(
+      'assets/homeHead/ic_hotels.png',
+      height: 40,
+    ),             // فندق
+    Image.asset(
+      'assets/homeHead/ic_bus.png',
+      height: 40,
+    ),   // أوتوبيس
+    Image.asset(
+      'assets/homeHead/ic_holiday.png',
+      height: 40,
+    ),     // يوم الإجازة
+    Image.asset(
+      'assets/homeHead/ic_homestay.png',
+      height: 40,
+    ),              // الإقامة
+    Image.asset(
+      'assets/homeHead/ic_more.png',
+      height: 40,
+    ),       // أخرى
   ];
 
   final List<List<Map<String, dynamic>>> bookingsData = const [
@@ -97,18 +121,18 @@ class Booksnav extends StatelessWidget {
                       child:
                       ListTile(
                         contentPadding: EdgeInsets.symmetric(horizontal: 15 , vertical: 0),
-                        leading: Icon(icon, color: Colors.black54, size: 45),
+                        leading: icon,
                         title:  Container(
                           child: Text(
                             'السعر: ${booking['price']} جنيه',
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w800 , fontSize: 17),
+                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w800 , fontSize: 16),
                           ) ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                            Text(
                           booking['title'],
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                         ),
 
                             Text(booking['desc'], style: TextStyle(color: Colors.grey[600] , fontSize: 11)),
