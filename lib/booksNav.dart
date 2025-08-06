@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'appColors.dart';
+
 class Booksnav extends StatelessWidget {
    Booksnav({Key? key}) : super(key: key);
 
@@ -88,7 +90,7 @@ class Booksnav extends StatelessWidget {
         child: DefaultTabController(
           length: tabs.length,
           child: Scaffold(
-            backgroundColor: Color(0x94E1E1E1),
+            backgroundColor: Appcolors.Appbackground,
             appBar: AppBar(
               backgroundColor: Colors.white,
               title: Text('حجوزاتي'),

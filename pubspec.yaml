@@ -46,6 +46,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   salomon_bottom_bar: ^3.3.2
+  carousel_slider: 4.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -64,6 +65,8 @@ flutter:
     - assets/profile.jpg
     - assets/splash.jpg
     - assets/banner_bg.png
+    - assets/search/
+    - assets/icons/
     - assets/homeHead/
     - assets/hotels/
 

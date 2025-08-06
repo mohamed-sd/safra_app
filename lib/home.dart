@@ -17,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
 
     final List<Widget> _screens = [
-      const HomeNav(),
+      HomeNav(),
       Booksnav(),
       const Profilenav()
     ];

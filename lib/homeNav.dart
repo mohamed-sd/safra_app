@@ -1,354 +1,469 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:safra_app/appColors.dart';
+import 'package:safra_app/search/apartment_search.dart';
+import 'package:safra_app/search/bus_search.dart';
+import 'package:safra_app/search/cab_search.dart';
+import 'package:safra_app/search/flight_search.dart';
+import 'package:safra_app/search/hafla_search.dart';
+import 'package:safra_app/search/hotel_search.dart';
+import 'package:safra_app/search/ship_search.dart';
+import 'package:safra_app/search/train_search.dart';
 
-class HomeNav extends StatelessWidget {
-  const HomeNav({Key? key}) : super(key: key);
+class HomeNav extends StatefulWidget {
+  @override
+  _BannerSliderState createState() => _BannerSliderState();
+}
+
+class _BannerSliderState extends State<HomeNav> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  final List<String> imagePaths = [
+    "assets/banner_bg.png",
+    "assets/banner_bg.png",
+    "assets/banner_bg.png",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    // لتغيير الصور تلقائيًا كل 5 ثواني
+    Future.delayed(Duration.zero, () {
+      Timer.periodic(Duration(seconds: 5), (Timer timer) {
+        if (_pageController.hasClients) {
+          int nextPage = (_currentPage + 1) % imagePaths.length;
+          _pageController.animateToPage(
+            nextPage,
+            duration: Duration(milliseconds: 800),
+            curve: Curves.easeInOut,
+          );
+          setState(() {
+            _currentPage = nextPage;
+          });
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          body: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 365,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/banner_bg.png"),
-                    fit: BoxFit.cover, // لتغطية كامل الحاوية
+      child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            body: Column(
+              children: [
+                Container(
+                  height: 365,
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        controller: _pageController,
+                        itemCount: imagePaths.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentPage = index;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          return Image.asset(
+                            imagePaths[index],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          );
+                        },
+                      ),
+                      Container(
+                        color: Color(0x7B131313), // التعتيم
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'سفرة ناخذك الي حيث تنتمي ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Icon(Icons.location_on,
+                                        color: Color(0xFF29FFF8)),
+                                    SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        '... اكتشف السودان والعالم مع افضل عروض السفر والاقامة ',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(color: Color(0xFF29FFF8)),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FlightSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'طيران',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_flight.png',
+                                                  height: 30))),
+                                    ),
+                                    Expanded(
+                                        child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ShipSearch()),
+                                              );
+                                            },
+                                            child: headerCard(
+                                                'بواخر',
+                                                Image.asset(
+                                                    'assets/homeHead/ic_more.png',
+                                                    height: 30)))),
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TrainSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'القطارات',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_train.png',
+                                                  height: 30))),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BusSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'بصات سفرية',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_bus.png',
+                                                  height: 30))),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HaflaSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'حافلات',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_bus.png',
+                                                  height: 30))),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CabSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'سيارات اجرة',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_cabs.png',
+                                                  height: 30))),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      HotelSearch()),
+                                            );
+                                          },
+                                          child: headerCard(
+                                              'الفنادق',
+                                              Image.asset(
+                                                  'assets/homeHead/ic_hotels.png',
+                                                  height: 30))),
+                                    ),
+                                    Expanded(
+                                        child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ApartmentSearch()),
+                                              );
+                                            },
+                                            child: headerCard(
+                                                'شقق مفروشة',
+                                                Image.asset(
+                                                    'assets/homeHead/ic_homestay.png',
+                                                    height: 30)))),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                child: Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: Color(0x7B131313)),
+                Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(color: Appcolors.Appbackground),
+                  width: double.infinity,
+                  child: SingleChildScrollView(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'سفرة ناخذك الي حيث تنتمي ',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 26,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                color: Color(0xFF29FFF8),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    '... اكتشف السودان والعالم مع افضل عروض السفر والاقامة ',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(color: Color(0xFF29FFF8)),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        // MainContainer
                         Container(
                           child: Column(
                             children: [
-                              Row(
-                                children: [
-                                  headerCard(
-                                    'طيران',
-                                    Image.asset(
-                                      'assets/homeHead/ic_flight.png',
-                                      height: 30,
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Title
+                                    Text(
+                                      'الفنادق',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w800),
                                     ),
-                                  ),
-                                  headerCard(
-                                    'الفنادق',
-                                    Image.asset(
-                                      'assets/homeHead/ic_hotels.png',
-                                      height: 30,
+                                    // Perf
+                                    Text(
+                                      'استكشف افضل الفنادق لدينا',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
                                     ),
-                                  ),
-                                  headerCard(
-                                    'القطارات',
-                                    Image.asset(
-                                      'assets/homeHead/ic_train.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                  headerCard(
-                                    'العطلات',
-                                    Image.asset(
-                                      'assets/homeHead/ic_holiday.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  headerCard(
-                                    'اوتوبيس',
-                                    Image.asset(
-                                      'assets/homeHead/ic_bus.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                  headerCard(
-                                    'سيارة الاجرة',
-                                    Image.asset(
-                                      'assets/homeHead/ic_cabs.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                  headerCard(
-                                    'الإقامة',
-                                    Image.asset(
-                                      'assets/homeHead/ic_homestay.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                  headerCard(
-                                    'اكثر',
-                                    Image.asset(
-                                      'assets/homeHead/ic_more.png',
-                                      height: 30,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              Container(
+                                height: 160,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
-                        )
+                        ),
+                        // MainContainer
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Title
+                                    Text(
+                                      'الفنادق',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                    // Perf
+                                    Text(
+                                      'استكشف افضل الفنادق لدينا',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 160,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        // MainContainer
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Title
+                                    Text(
+                                      'الفنادق',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                    // Perf
+                                    Text(
+                                      'استكشف افضل الفنادق لدينا',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 160,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        // MainContainer
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Title
+                                    Text(
+                                      'الفنادق',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                    // Perf
+                                    Text(
+                                      'استكشف افضل الفنادق لدينا',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 160,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
-                    )),
-              ),
-              Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(color: Color(0x94E1E1E1)),
-                    width: double.infinity,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          // MainContainer
-                          Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // Title
-                                      Text(
-                                        'الفنادق',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      // Perf
-                                      Text(
-                                        'استكشف افضل الفنادق لدينا',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: 160,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          // MainContainer
-                          Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // Title
-                                      Text(
-                                        'الفنادق',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      // Perf
-                                      Text(
-                                        'استكشف افضل الفنادق لدينا',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: 160,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          // MainContainer
-                          Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // Title
-                                      Text(
-                                        'الفنادق',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      // Perf
-                                      Text(
-                                        'استكشف افضل الفنادق لدينا',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: 160,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          // MainContainer
-                          Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // Title
-                                      Text(
-                                        'الفنادق',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      // Perf
-                                      Text(
-                                        'استكشف افضل الفنادق لدينا',
-                                        style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  height: 160,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                      homeCard(),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
-                  ))
-            ],
-          ),
-        )
-        ),
+                  ),
+                ))
+              ],
+            ),
+          )),
     );
   }
 
@@ -403,40 +518,36 @@ class HomeNav extends StatelessWidget {
     );
   }
 
-  Expanded headerCard(String title, Image image) {
-    return Expanded(
+  Container headerCard(String title, Image image) {
+    return Container(
+      margin: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          color: Color(0x54000000), borderRadius: BorderRadius.circular(16)),
       child: Container(
-        margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
-            color: Color(0x54000000), borderRadius: BorderRadius.circular(16)),
+            color: Color(0x5A595858), borderRadius: BorderRadius.circular(16)),
         child: Container(
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Color(0x5A595858),
+              color: Color(0x628F8E8E),
               borderRadius: BorderRadius.circular(16)),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Color(0x628F8E8E),
-                borderRadius: BorderRadius.circular(16)),
-            child: Column(
-              children: [
-                image,
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
-                ),
-              ],
-            ),
+          child: Column(
+            children: [
+              image,
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                title,
+                style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
-
 }

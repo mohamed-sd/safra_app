@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/login.dart';
+
+import 'appColors.dart';
 
 class Profilenav extends StatelessWidget {
   const Profilenav({Key? key}) : super(key: key);
@@ -9,7 +12,7 @@ class Profilenav extends StatelessWidget {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: Color(0x94E1E1E1),
+          backgroundColor: Appcolors.Appbackground,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -69,7 +72,14 @@ class Profilenav extends StatelessWidget {
                 buildMenuItem(Icons.language, 'تغيير اللغة'),
                 buildMenuItem(Icons.share, 'شارك التطبيق'),
                 buildMenuItem(Icons.star_border, 'قيّم التطبيق'),
-                buildMenuItem(Icons.logout, 'تسجيل الخروج', color: Colors.red),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    },
+                    child: buildMenuItem(Icons.logout, 'تسجيل الخروج', color: Colors.red)),
               ],
             ),
           ),
@@ -88,9 +98,6 @@ class Profilenav extends StatelessWidget {
         leading: Icon(icon, color: color ?? Colors.blue),
         title: Text(title, style: TextStyle(fontSize: 16)),
         trailing: Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {
-          // TODO: ربط كل خيار بما يناسبه
-        },
       ),
     );
   }

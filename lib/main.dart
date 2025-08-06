@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/login.dart';
 import 'dart:async';
 
 import 'home.dart';
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => MainScreen()),
+        MaterialPageRoute(builder: (_) => LoginScreen()),
       );
     });
   }
