@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../hotelList.dart';
+import '../trainList.dart';
+
 class HotelSearch extends StatefulWidget {
   @override
   _HotelSearchState createState() => _HotelSearchState();
@@ -169,11 +172,14 @@ class _HotelSearchState extends State<HotelSearch> {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                      );
-                    }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              HotelScreen()),
+                    );
+
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),

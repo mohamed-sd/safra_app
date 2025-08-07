@@ -10,6 +10,8 @@ import 'package:safra_app/search/hotel_search.dart';
 import 'package:safra_app/search/ship_search.dart';
 import 'package:safra_app/search/train_search.dart';
 
+import 'hotelDetalas.dart';
+
 class HomeNav extends StatefulWidget {
   @override
   _BannerSliderState createState() => _BannerSliderState();
@@ -299,55 +301,18 @@ class _BannerSliderState extends State<HomeNav> {
                                 child: ListView(
                                   scrollDirection: Axis.horizontal,
                                   children: [
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                    homeCard(),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        // MainContainer
-                        Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Title
-                                    Text(
-                                      'الفنادق',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w800),
-                                    ),
-                                    // Perf
-                                    Text(
-                                      'استكشف افضل الفنادق لدينا',
-                                      style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 160,
-                                child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: [
-                                    homeCard(),
+                                    InkWell(
+                                    onTap:(){
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) =>
+                              HotelDetailsScreen()),
+                              );
+                              }
+
+                                  ,
+                                  child: homeCard()),
                                     homeCard(),
                                     homeCard(),
                                     homeCard(),
@@ -395,7 +360,18 @@ class _BannerSliderState extends State<HomeNav> {
                                 child: ListView(
                                   scrollDirection: Axis.horizontal,
                                   children: [
-                                    homeCard(),
+                                    InkWell(
+                                    onTap:(){
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) =>
+                              HotelDetailsScreen()),
+                              );
+                              }
+
+                                  ,
+                                  child: homeCard()),
                                     homeCard(),
                                     homeCard(),
                                     homeCard(),
@@ -443,8 +419,104 @@ class _BannerSliderState extends State<HomeNav> {
                                 child: ListView(
                                   scrollDirection: Axis.horizontal,
                                   children: [
+                                    InkWell(
+                                    onTap:(){
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) =>
+                              HotelDetailsScreen()),
+                              );
+                              }
+
+                                  ,
+                                  child: homeCard()),
+                            InkWell(
+                                onTap:(){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HotelDetailsScreen()),
+                                  );
+                                }
+
+                                ,
+                                child: homeCard()),
                                     homeCard(),
                                     homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                    homeCard(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        // MainContainer
+                        Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Title
+                                    Text(
+                                      'الفنادق',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w800),
+                                    ),
+                                    // Perf
+                                    Text(
+                                      'استكشف افضل الفنادق لدينا',
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+
+                                height: 160,
+                                child:
+
+                                ListView(
+
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    InkWell(
+                                        onTap:(){
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HotelDetailsScreen()),
+                                          );
+                                        }
+
+                                        ,
+                                        child: homeCard()),
+                            InkWell(
+                                onTap:(){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HotelDetailsScreen()),
+                                  );
+                                }
+
+                                ,
+                                child: homeCard()),
                                     homeCard(),
                                     homeCard(),
                                     homeCard(),
@@ -469,6 +541,7 @@ class _BannerSliderState extends State<HomeNav> {
 
   Container homeCard() {
     return Container(
+
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       width: 200,
       height: 100,

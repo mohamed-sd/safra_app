@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../carlist.dart';
+import '../trainList.dart';
+
 class CabSearch extends StatefulWidget {
   @override
   _FlightSearchState createState() => _FlightSearchState();
@@ -104,7 +107,7 @@ class _FlightSearchState extends State<CabSearch> {
                             child: Icon(Icons.arrow_back, color: Colors.white),
                           ),
                           Text(
-                            'البحث عن السسيارات الخاصة ',
+                            'البحث عن السيارات الخاصة ',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 26,
@@ -208,11 +211,14 @@ class _FlightSearchState extends State<CabSearch> {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                      );
-                    }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CarListScreen()),
+                    );
+
                   },
                   child: Container(
                       padding:

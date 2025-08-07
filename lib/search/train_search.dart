@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../trainList.dart';
+
 class TrainSearch extends StatefulWidget {
   @override
   _FlightSearchState createState() => _FlightSearchState();
@@ -208,11 +210,15 @@ class _FlightSearchState extends State<TrainSearch> {
                 width: double.infinity,
                 child: InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              TripsListScreen()),
+                    );
+
+
+
                   },
                   child: Container(
                       padding:

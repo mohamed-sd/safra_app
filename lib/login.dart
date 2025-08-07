@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/home.dart';
-import 'appColors.dart'; // استدعاء ملف الألوان
+import 'appColors.dart';
+import 'hotelDetalas.dart'; // استدعاء ملف الألوان
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                     Text('ليس لديك حساب؟'),
                     TextButton(
                       onPressed: () {
-                        // الانتقال إلى صفحة التسجيل
+
                       },
                       child: Text(
                         'إنشاء حساب جديد',
