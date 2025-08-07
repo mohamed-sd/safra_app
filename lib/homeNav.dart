@@ -175,7 +175,7 @@ class _BannerSliderState extends State<HomeNav> {
                                             );
                                           },
                                           child: headerCard(
-                                              'بصات سفرية',
+                                              'الباصات ',
                                               Image.asset(
                                                   'assets/homeHead/ic_bus.png',
                                                   height: 30))),
@@ -243,7 +243,7 @@ class _BannerSliderState extends State<HomeNav> {
                                               );
                                             },
                                             child: headerCard(
-                                                'شقق مفروشة',
+                                                'شقة ',
                                                 Image.asset(
                                                     'assets/homeHead/ic_homestay.png',
                                                     height: 30)))),

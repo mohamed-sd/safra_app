@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/login.dart';
+import 'package:safra_app/project.dart';
 
 import 'appColors.dart';
 
@@ -68,7 +69,18 @@ class Profilenav extends StatelessWidget {
                 buildMenuItem(Icons.support_agent, 'الدعم'),
                 buildMenuItem(Icons.info_outline, 'معلومات عنا'),
                 buildMenuItem(Icons.description_outlined, 'البنود والظروف'),
-                buildMenuItem(Icons.work_outline, 'مشاريعي'),
+
+
+                InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProjectsScreen()),
+                      );
+                    },
+                    child: buildMenuItem(Icons.work_outline, 'مشاريعي ')),
+
+
                 buildMenuItem(Icons.language, 'تغيير اللغة'),
                 buildMenuItem(Icons.share, 'شارك التطبيق'),
                 buildMenuItem(Icons.star_border, 'قيّم التطبيق'),

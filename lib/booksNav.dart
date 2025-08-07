@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/ticketBus.dart';
 
 import 'appColors.dart';
 
@@ -58,24 +59,24 @@ class Booksnav extends StatelessWidget {
       {'title': 'أوتوبيس إلى الأسكندرية', 'desc': '5 مساءً', 'price': 120},
     ],
     [
-      {'title': 'طيران إلى جدة', 'desc': '8 صباحًا', 'price': 950},
-      {'title': 'طيران إلى باريس', 'desc': '2 مساءً', 'price': 3200},
+      {'title': 'طيران إلى دنقلا', 'desc': '8 صباحًا', 'price': 950},
+      {'title': 'طيران إلى كسلا', 'desc': '2 مساءً', 'price': 3200},
     ],
     [
-      {'title': 'قطار طنطا إلى القاهرة', 'desc': '11 صباحًا', 'price': 60},
+      {'title': 'قطار عطبرة إلى الخرطوم', 'desc': '11 صباحًا', 'price': 60},
     ],
     [
       {'title': 'فندق النيل', 'desc': '4 ليالٍ - مزدوج', 'price': 2200},
       {'title': 'فندق السلام', 'desc': 'ليلتان - مفردة', 'price': 950},
     ],
     [
-      {'title': 'أوتوبيس المنصورة', 'desc': 'يوم الإثنين', 'price': 90},
+      {'title': 'بص الدمازين ', 'desc': 'يوم الإثنين', 'price': 90},
     ],
     [
       {'title': 'رحلة جبلية', 'desc': 'الجمعة القادمة', 'price': 350},
     ],
     [
-      {'title': 'إقامة طويلة بالقاهرة', 'desc': 'حتى نهاية الشهر', 'price': 3000},
+      {'title': 'إقامة طويلة بالدامر', 'desc': 'حتى نهاية الشهر', 'price': 3000},
     ],
     [
       {'title': 'حجز خاص', 'desc': 'يحتاج مراجعة', 'price': 0},
@@ -145,6 +146,10 @@ class Booksnav extends StatelessWidget {
                         trailing: Icon(Icons.keyboard_double_arrow_left, size: 30 , color: Colors.blue,),
                         onTap: () {
                           // التنقل إلى صفحة التفاصيل لاحقًا
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TicketScreen()),
+                          );
                         },
                       ),
                     );
