@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
+import 'package:safra_app/list/flight_list.dart';
+
+import '../widgets/custom_action_button.dart';
+import '../widgets/custom_back_button.dart';
 
 class FlightSearch extends StatefulWidget {
   @override
@@ -95,14 +99,11 @@ class _FlightSearchState extends State<FlightSearch> {
                     ),
                     Container(
                       color: Color(0x7B131313),
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.only(right: 16, left: 16 , top: 3),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(Icons.arrow_back, color: Colors.white),
-                          ),
+                          CustomBackButton(),
                           Text(
                             'البحث عن رحلات جوية',
                             style: TextStyle(
@@ -207,30 +208,18 @@ class _FlightSearchState extends State<FlightSearch> {
                 ),
               ),
               SizedBox(
-                width: double.infinity,
-                child: InkWell(
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
+                  width: double.infinity,
+                  child: CustomActionButton(
+                    text: " البحث عن رحلة ",
+                    icon: Icons.flight,
+                    backgroundColor: Appcolors.primary,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FlightList()),
                       );
-                    }
-                  },
-                  child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: Appcolors.primary),
-                      child: Center(
-                          child: Text(
-                        ' بحث ',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ))),
-                ),
-              )
+                    },
+                  )),
             ],
           ),
         ),
@@ -354,9 +343,9 @@ class _FlightSearchState extends State<FlightSearch> {
         ),
         items: List.generate(6, (index) => index)
             .map((number) => DropdownMenuItem(
-          value: number,
-          child: Text(number.toString()),
-        ))
+                  value: number,
+                  child: Text(number.toString()),
+                ))
             .toList(),
         onChanged: (val) {
           if (val != null) onChanged(val);
@@ -364,5 +353,4 @@ class _FlightSearchState extends State<FlightSearch> {
       ),
     );
   }
-
 }

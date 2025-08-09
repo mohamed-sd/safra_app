@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/home.dart';
 import 'appColors.dart';
-import 'hotelDetalas.dart'; // استدعاء ملف الألوان
+import 'detailes/hotelDetalas.dart'; // استدعاء ملف الألوان
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

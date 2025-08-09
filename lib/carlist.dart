@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/appColors.dart';
+import 'package:safra_app/widgets/custom_back_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,12 +35,17 @@ class CarListScreen extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 160,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/search/cab.png"), // غيّر الخلفية حسب الحاجة
                       fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Container(
+                    height: 160,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                     color: Appcolors.trans,
                     ),
                   ),
                 ),
@@ -48,7 +55,15 @@ class CarListScreen extends StatelessWidget {
                   left: 16,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
+                    children:  [
+                      Container(
+                        width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomBackButton(),
+                            ],
+                          )),
                       Text(
                         "الخرطوم إلى مدني",
                         style: TextStyle(
@@ -61,7 +76,7 @@ class CarListScreen extends StatelessWidget {
                       Text(
                         "23 أغسطس  -  11:30 صباحًا  -  Hatchback",
                         style: TextStyle(
-                          color: Colors.white70,
+                          color: Colors.white,
                           fontSize: 14,
                         ),
                       ),

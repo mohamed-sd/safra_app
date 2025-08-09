@@ -4,6 +4,8 @@ import 'package:safra_app/appColors.dart';
 
 import '../hotelList.dart';
 import '../trainList.dart';
+import '../widgets/custom_action_button.dart';
+import '../widgets/custom_back_button.dart';
 
 class HotelSearch extends StatefulWidget {
   @override
@@ -97,14 +99,11 @@ class _HotelSearchState extends State<HotelSearch> {
                     ),
                     Container(
                       color: Color(0x7B131313),
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.only(right: 16, left: 16 , top: 3),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(Icons.arrow_back, color: Colors.white),
-                          ),
+                          CustomBackButton(),
                           Text(
                             'البحث عن فندق',
                             style: TextStyle(
@@ -170,31 +169,18 @@ class _HotelSearchState extends State<HotelSearch> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: InkWell(
-                  onTap: () {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              HotelScreen()),
-                    );
-
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(color: Appcolors.primary),
-                    child: Center(
-                      child: Text(
-                        'احجز الآن',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: CustomActionButton(
+                    text: " البحث عن غرفة ",
+                    icon: Icons.hotel_rounded,
+                    backgroundColor: Appcolors.primary,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                HotelScreen()),
+                      );
+                    },
                 ),
               )
             ],

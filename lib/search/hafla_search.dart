@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../widgets/custom_action_button.dart';
+import '../widgets/custom_back_button.dart';
+
 class HaflaSearch extends StatefulWidget {
   @override
   _FlightSearchState createState() => _FlightSearchState();
@@ -96,14 +99,11 @@ class _FlightSearchState extends State<HaflaSearch> {
                     ),
                     Container(
                       color: Color(0x7B131313),
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.only(right: 16, left: 16 , top: 3),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(Icons.arrow_back, color: Colors.white),
-                          ),
+                          CustomBackButton(),
                           Text(
                             'البحث عن الحافلات ',
                             style: TextStyle(
@@ -200,28 +200,19 @@ class _FlightSearchState extends State<HaflaSearch> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: InkWell(
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                      );
-                    }
-                  },
-                  child: Container(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: Appcolors.primary),
-                      child: Center(
-                          child: Text(
-                            ' بحث ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                          ))),
-                ),
+                child: CustomActionButton(
+                    text: " البحث عن حافلة ",
+                    icon: Icons.directions_bus_rounded,
+                    backgroundColor: Appcolors.primary,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
+                        );
+                      }
+                    },
+                  ),
+
               )
             ],
           ),

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../widgets/custom_action_button.dart';
+import '../widgets/custom_back_button.dart';
 
 class ShipSearch extends StatefulWidget {
   @override
@@ -9,7 +11,6 @@ class ShipSearch extends StatefulWidget {
 }
 
 class _BannerSliderState extends State<ShipSearch> {
-
   final PageController _pageController = PageController();
   int _currentPage = 0;
   final List<String> imagePaths = [
@@ -41,7 +42,6 @@ class _BannerSliderState extends State<ShipSearch> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Directionality(
           textDirection: TextDirection.rtl,
@@ -53,7 +53,6 @@ class _BannerSliderState extends State<ShipSearch> {
                   width: double.infinity,
                   child: Stack(
                     children: [
-
                       PageView.builder(
                         controller: _pageController,
                         itemCount: imagePaths.length,
@@ -72,18 +71,11 @@ class _BannerSliderState extends State<ShipSearch> {
                       ),
                       Container(
                         color: Color(0x7B131313), // التعتيم
-                        padding: EdgeInsets.all(16),
+                        padding: EdgeInsets.only(right: 16, left: 16 , top: 3),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            InkWell(
-                              onTap: (){
-                                Navigator.pop(context);
-                              }
-                              ,child: Icon(
-                              Icons.arrow_back , color: Colors.white,
-                            ),
-                            ),
+                            CustomBackButton(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -123,19 +115,28 @@ class _BannerSliderState extends State<ShipSearch> {
                 ),
                 Expanded(
                     child: Container(
-                      decoration: BoxDecoration(color: Appcolors.Appbackground),
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-
-                        ),
-                      ),
-                    ))
+                  decoration: BoxDecoration(color: Appcolors.Appbackground),
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                    ),
+                  ),
+                )),
+                SizedBox(
+                  width: double.infinity,
+                  child: CustomActionButton(
+                    text: " البحث عن رحلة ",
+                    icon: Icons.directions_boat,
+                    backgroundColor: Appcolors.primary,
+                    onPressed: () {
+                      print("تم الضغط على الزر");
+                    },
+                  ),
+                )
               ],
             ),
-          )
-      ),
+          )),
     );
   }
 }

@@ -10,7 +10,7 @@ import 'package:safra_app/search/hotel_search.dart';
 import 'package:safra_app/search/ship_search.dart';
 import 'package:safra_app/search/train_search.dart';
 
-import 'hotelDetalas.dart';
+import 'detailes/hotelDetalas.dart';
 
 class HomeNav extends StatefulWidget {
   @override

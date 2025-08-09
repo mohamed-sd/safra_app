@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
+import '../widgets/custom_action_button.dart';
+import '../widgets/custom_back_button.dart';
+
 class BusSearch extends StatefulWidget {
   @override
   _FlightSearchState createState() => _FlightSearchState();
@@ -96,14 +99,11 @@ class _FlightSearchState extends State<BusSearch> {
                     ),
                     Container(
                       color: Color(0x7B131313),
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.only(right: 16, left: 16 , top: 3),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(Icons.arrow_back, color: Colors.white),
-                          ),
+                          CustomBackButton(),
                           Text(
                             'البحث عن الباصات السياحية ',
                             style: TextStyle(
@@ -127,9 +127,9 @@ class _FlightSearchState extends State<BusSearch> {
                               ),
                               onChanged: (value) => fromCity = value,
                               validator: (value) =>
-                              value == null || value.isEmpty
-                                  ? 'أدخل مدينة الانطلاق'
-                                  : null,
+                                  value == null || value.isEmpty
+                                      ? 'أدخل مدينة الانطلاق'
+                                      : null,
                             ),
                           ),
                           SizedBox(width: 10),
@@ -147,9 +147,9 @@ class _FlightSearchState extends State<BusSearch> {
                               ),
                               onChanged: (value) => toCity = value,
                               validator: (value) =>
-                              value == null || value.isEmpty
-                                  ? 'أدخل الوجهة'
-                                  : null,
+                                  value == null || value.isEmpty
+                                      ? 'أدخل الوجهة'
+                                      : null,
                             ),
                           ),
                         ],
@@ -171,7 +171,9 @@ class _FlightSearchState extends State<BusSearch> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             _buildDatePicker('حدد التاريخ ', true),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             DropdownButtonFormField<String>(
                               value: travelClass,
                               decoration: InputDecoration(
@@ -181,9 +183,9 @@ class _FlightSearchState extends State<BusSearch> {
                               ),
                               items: ['ابو عامر', 'العزيزية', 'الدهاب']
                                   .map((classType) => DropdownMenuItem(
-                                value: classType,
-                                child: Text(classType),
-                              ))
+                                        value: classType,
+                                        child: Text(classType),
+                                      ))
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -200,29 +202,19 @@ class _FlightSearchState extends State<BusSearch> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: InkWell(
-                  onTap: () {
+                child: CustomActionButton(
+                  text: " البحث عن باص ",
+                  icon: Icons.directions_bus_rounded,
+                  backgroundColor: Appcolors.primary,
+                  onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
                       );
                     }
                   },
-                  child: Container(
-                      padding:
-                      EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(color: Appcolors.primary),
-                      child: Center(
-                          child: Text(
-                            ' بحث ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                          ))),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -321,9 +313,9 @@ class _FlightSearchState extends State<BusSearch> {
           ),
           items: ['اقتصادية', 'رجال أعمال', 'الدرجة الأولى']
               .map((classType) => DropdownMenuItem(
-            value: classType,
-            child: Text(classType),
-          ))
+                    value: classType,
+                    child: Text(classType),
+                  ))
               .toList(),
           onChanged: (value) {
             setState(() {
@@ -346,9 +338,9 @@ class _FlightSearchState extends State<BusSearch> {
         ),
         items: List.generate(6, (index) => index)
             .map((number) => DropdownMenuItem(
-          value: number,
-          child: Text(number.toString()),
-        ))
+                  value: number,
+                  child: Text(number.toString()),
+                ))
             .toList(),
         onChanged: (val) {
           if (val != null) onChanged(val);
@@ -356,6 +348,7 @@ class _FlightSearchState extends State<BusSearch> {
       ),
     );
   }
+
   Widget _buildDropdown(String label, int value, Function(int) onChanged) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -367,9 +360,9 @@ class _FlightSearchState extends State<BusSearch> {
         ),
         items: List.generate(6, (index) => index)
             .map((number) => DropdownMenuItem(
-          value: number,
-          child: Text(number.toString()),
-        ))
+                  value: number,
+                  child: Text(number.toString()),
+                ))
             .toList(),
         onChanged: (val) {
           if (val != null) onChanged(val);
