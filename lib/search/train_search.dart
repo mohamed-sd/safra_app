@@ -6,6 +6,8 @@ import 'package:safra_app/list/train_list.dart';
 import '../trainList.dart';
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_drop_down.dart';
 
 class TrainSearch extends StatefulWidget {
   @override
@@ -229,9 +231,76 @@ class _FlightSearchState extends State<TrainSearch> {
   Widget _buildRoundTripForm() {
     return Column(
       children: [
-        _buildDatePicker('تاريخ المغادرة', true),
-        _buildDatePicker('تاريخ العودة', false),
-        _buildPassengerFields(),
+
+        CustomDatePicker(
+          label: "حدد تاريخ المغادرة",
+          initialDate: DateTime.now(),
+          onDateSelected: (date) {
+            print("تم اختيار التاريخ: $date");
+          },
+        ),
+
+        // _buildDatePicker('تاريخ المغادرة', true),
+        CustomDatePicker(
+          label: "حدد تاريخ العودة",
+          initialDate: DateTime.now(),
+          onDateSelected: (date) {
+            print("تم اختيار التاريخ: $date");
+          },
+        ),
+
+        Column(
+          children: [
+
+            CustomDropdown<int>(
+              title: "عدد الأطفال",
+              hint: "اختر عدد الأطفال",
+              icon: Icons.child_care,
+              items: List.generate(6, (index) => index), // من 0 إلى 5
+              itemLabel: (value) => "$value",
+              onChanged: (value) {
+                print("عدد الأطفال: $value");
+              },
+            ),
+            // القائمة الثانية: عدد البالغين
+            CustomDropdown<int>(
+              title: "عدد البالغين",
+              hint: "اختر عدد البالغين",
+              icon: Icons.person,
+              items: List.generate(10, (index) => index + 1), // من 1 إلى 10
+              itemLabel: (value) => "$value",
+              onChanged: (value) {
+                print("عدد البالغين: $value");
+              },
+            ),
+            CustomDropdown<int>(
+              title: "عدد الأمتعة",
+              hint: "اختر عدد الأمتعة",
+              icon: Icons.luggage,
+              items: List.generate(6, (index) => index), // من 0 إلى 5
+              itemLabel: (value) => "$value",
+              onChanged: (value) {
+                print("عدد الأمتعة: $value");
+              },
+            ),
+            CustomDropdown<String>(
+              title: "الدرجة",
+              hint: "اختر الدرجة",
+              icon: Icons.airline_seat_recline_normal,
+              items: ["اقتصادية", "درجة رجال الأعمال", "الأولى"],
+              itemLabel: (value) => value,
+              onChanged: (value) {
+                print("الدرجة: $value");
+              },
+            ),
+
+
+          ],
+        )
+
+
+
+
       ],
     );
   }
@@ -239,7 +308,7 @@ class _FlightSearchState extends State<TrainSearch> {
   Widget _buildOneWayForm() {
     return Column(
       children: [
-        _buildDatePicker('تاريخ المغادرة', true),
+       // _buildDatePicker('تاريخ المغادرة', true),
         _buildPassengerFields(),
       ],
     );
@@ -249,10 +318,10 @@ class _FlightSearchState extends State<TrainSearch> {
     return Column(
       children: [
         _buildCityRow('الرحلة الأولى'),
-        _buildDatePicker('تاريخ المغادرة', true),
+       // _buildDatePicker('تاريخ المغادرة', true),
         Divider(),
         _buildCityRow('الرحلة الثانية'),
-        _buildDatePicker('تاريخ الرجوع', false),
+       // _buildDatePicker('تاريخ الرجوع', false),
         _buildPassengerFields(),
       ],
     );
@@ -282,18 +351,6 @@ class _FlightSearchState extends State<TrainSearch> {
     );
   }
 
-  Widget _buildDatePicker(String label, bool isDeparture) {
-    DateTime? selectedDate = isDeparture ? departureDate : returnDate;
-    return ListTile(
-      leading: Icon(Icons.calendar_today),
-      title: Text(
-        selectedDate == null
-            ? label
-            : '$label: ${selectedDate.toLocal()}'.split(' ')[0],
-      ),
-      onTap: () => _selectDate(context, isDeparture),
-    );
-  }
 
   Widget _buildPassengerFields() {
     return Column(

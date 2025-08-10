@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/login.dart';
 import 'dart:async';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'home.dart';
 
@@ -12,8 +13,17 @@ class SafraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'سفرة',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('ar'), // Arabic
+      ],
+      title: 'سفرة',
       theme: ThemeData(
         primarySwatch: Colors.orange,
         fontFamily: 'Arial',
