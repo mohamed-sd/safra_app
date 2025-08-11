@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:safra_app/appColors.dart';
+import 'package:safra_app/detailes/flight_details.dart';
 import 'package:safra_app/widgets/custom_back_button.dart';
 
 class FlightList extends StatelessWidget {
@@ -140,6 +141,7 @@ class FlightList extends StatelessWidget {
                       arrivalCity: toCity,
                       stops: index % 2 == 0 ? "بدون توقف" : "توقف واحد",
                       duration: "1h 45m",
+                      cxt: context,
                     ),
                   );
                 },
@@ -161,93 +163,102 @@ class FlightList extends StatelessWidget {
     required String arrivalCity,
     required String stops,
     required String duration,
+    BuildContext? cxt ,
   }) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      elevation: 6,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Column(
-        children: [
+    return InkWell(
+      onTap: (){
+        Navigator.push(
+          cxt!,
+          MaterialPageRoute(builder: (context) => FlightDetails()),
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        elevation: 6,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Column(
+          children: [
 
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.blue.shade700,
-              gradient: LinearGradient(
-                colors: [ Colors.blue , Colors.white,],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.blue.shade700,
+                gradient: LinearGradient(
+                  colors: [ Colors.blue , Colors.white,],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
               ),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.flight_takeoff, color: Colors.black),
+                      SizedBox(width: 8),
+                      Text(airline,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black)),
+                    ],
+                  ),
+                  Text(price,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                ],
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.flight_takeoff, color: Colors.black),
-                    SizedBox(width: 8),
-                    Text(airline,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black)),
-                  ],
-                ),
-                Text(price,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
-              ],
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    color: Colors.grey.shade300,
+                    child: Icon(Icons.flight, color: Colors.blue),
+                  ),
+                  SizedBox(width: 16,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(departureTime,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                      Text(departureCity, style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      Text(stops, style: TextStyle(fontSize: 10)),
+                      Container(
+                        width: 60,
+                        height: 2,
+                        color: Colors.blue,
+                        margin: EdgeInsets.symmetric(vertical: 4),
+                      ),
+                      Text(duration, style: TextStyle(fontSize: 10)),
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(arrivalTime,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                      Text(arrivalCity, style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(12),
-            child: Row(
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  color: Colors.grey.shade300,
-                  child: Icon(Icons.flight, color: Colors.blue),
-                ),
-                SizedBox(width: 16,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(departureTime,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text(departureCity, style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  children: [
-                    Text(stops, style: TextStyle(fontSize: 10)),
-                    Container(
-                      width: 60,
-                      height: 2,
-                      color: Colors.blue,
-                      margin: EdgeInsets.symmetric(vertical: 4),
-                    ),
-                    Text(duration, style: TextStyle(fontSize: 10)),
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(arrivalTime,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text(arrivalCity, style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
