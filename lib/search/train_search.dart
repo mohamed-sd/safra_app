@@ -14,7 +14,7 @@ class TrainSearch extends StatefulWidget {
   _FlightSearchState createState() => _FlightSearchState();
 }
 
-class _FlightSearchState extends State<TrainSearch> {
+class _FlightSearchState extends State<TrainSearch> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   String? fromCity;
   String? toCity;
@@ -24,6 +24,7 @@ class _FlightSearchState extends State<TrainSearch> {
   int children = 0;
   int luggage = 0;
   String travelClass = 'اقتصادية';
+  late TabController _tabController;
 
   final PageController _pageController = PageController();
   int _currentPage = 0;
@@ -51,6 +52,13 @@ class _FlightSearchState extends State<TrainSearch> {
         }
       });
     });
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   Future<void> _selectDate(BuildContext context, bool isDeparture) async {
@@ -77,10 +85,11 @@ class _FlightSearchState extends State<TrainSearch> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
+          backgroundColor: Appcolors.background,
           body: Column(
             children: [
               Container(
-                height: 300,
+                height: 250,
                 width: double.infinity,
                 child: Stack(
                   children: [
@@ -161,53 +170,101 @@ class _FlightSearchState extends State<TrainSearch> {
                   ],
                 ),
               ),
+              Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                        offset: const Offset(0, 3), // اتجاه الظل للأسفل قليلًا
+                      ),
+                    ]
+                ),
+                child: TabBar(
+                  physics: NeverScrollableScrollPhysics(),
+                  labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+                  controller: _tabController,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.black87,
+                  indicator: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  tabs: [
+                    Tab(text: 'ذهاب وإياب'),
+                    Tab(text: 'ذهاب فقط'),
+                  ],
+                ),
+              ),
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(color: Appcolors.Appbackground),
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                DefaultTabController(
-                                  length: 3,
-                                  child: Column(
-                                    children: [
-                                      TabBar(
-                                        labelColor: Colors.black,
-                                        indicatorColor: Appcolors.primary,
-                                        tabs: [
-                                          Tab(text: 'ذهاب وإياب'),
-                                          Tab(text: 'ذهاب فقط'),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 580,
-                                        child: TabBarView(
-                                          children: [
-                                            _buildRoundTripForm(),
-                                            _buildOneWayForm(),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 400),
+                  switchInCurve: Curves.easeInOut,
+                  switchOutCurve: Curves.easeInOut,
+                  child: TabBarView(
+                    key: ValueKey<int>(_tabController.index),
+                    controller: _tabController,
+                    physics: NeverScrollableScrollPhysics(), // منع السحب
+                    children: [
+                      _buildRoundTripForm(),
+                      _buildRoundTripForm(),
+                    ],
                   ),
                 ),
               ),
+              // Expanded(
+              //   child: Container(
+              //     decoration: BoxDecoration(color: Appcolors.Appbackground),
+              //     width: double.infinity,
+              //     child: SingleChildScrollView(
+              //       child: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.end,
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.all(16.0),
+              //             child: Form(
+              //               key: _formKey,
+              //               child: Column(
+              //                 children: [
+              //                   DefaultTabController(
+              //                     length: 3,
+              //                     child: Column(
+              //                       children: [
+              //                         TabBar(
+              //                           labelColor: Colors.black,
+              //                           indicatorColor: Appcolors.primary,
+              //                           tabs: [
+              //                             Tab(text: 'ذهاب وإياب'),
+              //                             Tab(text: 'ذهاب فقط'),
+              //                           ],
+              //                         ),
+              //                         SizedBox(
+              //                           height: 580,
+              //                           child: TabBarView(
+              //                             children: [
+              //                               _buildRoundTripForm(),
+              //                               _buildOneWayForm(),
+              //                             ],
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                   width: double.infinity,
                   child: CustomActionButton(
@@ -229,162 +286,70 @@ class _FlightSearchState extends State<TrainSearch> {
   }
 
   Widget _buildRoundTripForm() {
-    return Column(
-      children: [
-
-        CustomDatePicker(
-          label: "حدد تاريخ المغادرة",
-          initialDate: DateTime.now(),
-          onDateSelected: (date) {
-            print("تم اختيار التاريخ: $date");
-          },
-        ),
-
-        // _buildDatePicker('تاريخ المغادرة', true),
-        CustomDatePicker(
-          label: "حدد تاريخ العودة",
-          initialDate: DateTime.now(),
-          onDateSelected: (date) {
-            print("تم اختيار التاريخ: $date");
-          },
-        ),
-
-        Column(
-          children: [
-
-            CustomDropdown<int>(
-              title: "عدد الأطفال",
-              hint: "اختر عدد الأطفال",
-              icon: Icons.child_care,
-              items: List.generate(6, (index) => index), // من 0 إلى 5
-              itemLabel: (value) => "$value",
-              onChanged: (value) {
-                print("عدد الأطفال: $value");
-              },
-            ),
-            // القائمة الثانية: عدد البالغين
-            CustomDropdown<int>(
-              title: "عدد البالغين",
-              hint: "اختر عدد البالغين",
-              icon: Icons.person,
-              items: List.generate(10, (index) => index + 1), // من 1 إلى 10
-              itemLabel: (value) => "$value",
-              onChanged: (value) {
-                print("عدد البالغين: $value");
-              },
-            ),
-            CustomDropdown<int>(
-              title: "عدد الأمتعة",
-              hint: "اختر عدد الأمتعة",
-              icon: Icons.luggage,
-              items: List.generate(6, (index) => index), // من 0 إلى 5
-              itemLabel: (value) => "$value",
-              onChanged: (value) {
-                print("عدد الأمتعة: $value");
-              },
-            ),
-            CustomDropdown<String>(
-              title: "الدرجة",
-              hint: "اختر الدرجة",
-              icon: Icons.airline_seat_recline_normal,
-              items: ["اقتصادية", "درجة رجال الأعمال", "الأولى"],
-              itemLabel: (value) => value,
-              onChanged: (value) {
-                print("الدرجة: $value");
-              },
-            ),
-
-
-          ],
-        )
-
-
-
-
-      ],
-    );
-  }
-
-  Widget _buildOneWayForm() {
-    return Column(
-      children: [
-       // _buildDatePicker('تاريخ المغادرة', true),
-        _buildPassengerFields(),
-      ],
-    );
-  }
-
-  Widget _buildMultiCityForm() {
-    return Column(
-      children: [
-        _buildCityRow('الرحلة الأولى'),
-       // _buildDatePicker('تاريخ المغادرة', true),
-        Divider(),
-        _buildCityRow('الرحلة الثانية'),
-       // _buildDatePicker('تاريخ الرجوع', false),
-        _buildPassengerFields(),
-      ],
-    );
-  }
-
-  Widget _buildCityRow(String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'من'),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'إلى'),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-
-  Widget _buildPassengerFields() {
-    return Column(
-      children: [
-        _buildCounter('عدد البالغين', passengers, (val) {
-          setState(() => passengers = val);
-        }),
-        _buildCounter('عدد الأطفال', children, (val) {
-          setState(() => children = val);
-        }),
-        _buildCounter('عدد الأمتعة', luggage, (val) {
-          setState(() => luggage = val);
-        }),
-        SizedBox(height: 10),
-        DropdownButtonFormField<String>(
-          value: travelClass,
-          decoration: InputDecoration(
-            labelText: 'اختر المقطورة',
-            prefixIcon: Icon(Icons.event_seat),
-            border: OutlineInputBorder(),
+    return Container(
+      height: 200,
+      child: Column(
+        children: [
+          CustomDatePicker(
+            label: "حدد تاريخ المغادرة",
+            initialDate: DateTime.now(),
+            onDateSelected: (date) {
+              print("تم اختيار التاريخ: $date");
+            },
           ),
-          items: ['اقتصادية', 'رجال أعمال', 'الدرجة الأولى']
-              .map((classType) => DropdownMenuItem(
-                    value: classType,
-                    child: Text(classType),
-                  ))
-              .toList(),
-          onChanged: (value) {
-            setState(() {
-              travelClass = value!;
-            });
-          },
-        )
-      ],
+          Column(
+            children: [
+              CustomDropdown<int>(
+                title: "عدد الأطفال",
+                hint: "اختر عدد الأطفال",
+                icon: Icons.child_care,
+                items: List.generate(6, (index) => index), // من 0 إلى 5
+                itemLabel: (value) => "$value",
+                onChanged: (value) {
+                  print("عدد الأطفال: $value");
+                },
+              ),
+              // القائمة الثانية: عدد البالغين
+              CustomDropdown<int>(
+                title: "عدد البالغين",
+                hint: "اختر عدد البالغين",
+                icon: Icons.person,
+                items: List.generate(10, (index) => index + 1), // من 1 إلى 10
+                itemLabel: (value) => "$value",
+                onChanged: (value) {
+                  print("عدد البالغين: $value");
+                },
+              ),
+              CustomDropdown<int>(
+                title: "عدد الأمتعة",
+                hint: "اختر عدد الأمتعة",
+                icon: Icons.luggage,
+                items: List.generate(6, (index) => index), // من 0 إلى 5
+                itemLabel: (value) => "$value",
+                onChanged: (value) {
+                  print("عدد الأمتعة: $value");
+                },
+              ),
+              CustomDropdown<String>(
+                title: "الدرجة",
+                hint: "اختر الدرجة",
+                icon: Icons.airline_seat_recline_normal,
+                items: ["اقتصادية", "درجة رجال الأعمال", "الأولى"],
+                itemLabel: (value) => value,
+                onChanged: (value) {
+                  print("الدرجة: $value");
+                },
+              ),
+
+
+            ],
+          )
+
+
+
+
+        ],
+      ),
     );
   }
 

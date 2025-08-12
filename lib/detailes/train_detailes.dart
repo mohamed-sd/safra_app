@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 import 'package:safra_app/confirm/flight_confirm.dart';
+import 'package:safra_app/confirm/train_confirm.dart';
 import '../widgets/custom_back_button.dart';
 
-class FlightDetails extends StatefulWidget {
+class TrainDetailes extends StatefulWidget {
   final String? fromCity;
   final String? toCity;
 
-  const FlightDetails({Key? key, this.fromCity, this.toCity}) : super(key: key);
+  const TrainDetailes({Key? key, this.fromCity, this.toCity}) : super(key: key);
 
   @override
-  State<FlightDetails> createState() => _FlightDetailsState();
+  State<TrainDetailes> createState() => _FlightDetailsState();
 }
 
-class _FlightDetailsState extends State<FlightDetails>
+class _FlightDetailsState extends State<TrainDetailes>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
@@ -59,7 +60,7 @@ class _FlightDetailsState extends State<FlightDetails>
                   Stack(
                     children: [
                       Image.asset(
-                        "assets/search/flight.png",
+                        "assets/search/train.png",
                         width: double.infinity,
                         height: 250,
                         fit: BoxFit.cover,
@@ -99,7 +100,7 @@ class _FlightDetailsState extends State<FlightDetails>
                                 labelStyle: TextStyle(color: Colors.white),
                                 labelText: 'من الخرطوم',
                                 prefixIcon: Icon(
-                                  Icons.flight_takeoff,
+                                  Icons.train,
                                   color: Colors.blue,
                                 ),
                               ),
@@ -115,9 +116,9 @@ class _FlightDetailsState extends State<FlightDetails>
                                 hintText: ' جدة ',
                                 hintStyle: TextStyle(color: Colors.white),
                                 labelStyle: TextStyle(color: Colors.white),
-                                labelText: 'الي نيالا',
+                                labelText: 'الي مدني',
                                 prefixIcon: Icon(
-                                  Icons.flight_land,
+                                  Icons.train,
                                   color: Colors.blue,
                                 ),
                               ),
@@ -153,9 +154,9 @@ class _FlightDetailsState extends State<FlightDetails>
                   SizedBox(height: 10),
 
                   // أسعار المقاعد
-                  seatOption("\$158.50", "اقتصادي", "50 مقعد متبقي"),
-                  seatOption("\$210.00", "اقتصادي مميز", "78 مقعد متبقي"),
-                  seatOption("\$300.00", "درجة رجال الأعمال", "25 مقعد متبقي"),
+                  seatOption("\$30.00", "درجة اولي", "120 مقعد متبقي"),
+                  seatOption("\$20.00", "درجة ثانية", "78 مقعد متبقي"),
+                  seatOption("\$18.00", "عادي", "100 مقعد متبقي"),
                 ],
               ),
             ),
@@ -175,7 +176,7 @@ class _FlightDetailsState extends State<FlightDetails>
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> FlightConfirm()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> TrainConfirm()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

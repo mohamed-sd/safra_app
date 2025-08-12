@@ -3,7 +3,7 @@ import 'package:barcode_widget/barcode_widget.dart';
 
 import '../appColors.dart';
 
-class FlightTicket extends StatelessWidget {
+class TrainTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -37,7 +37,7 @@ class FlightTicket extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/search/flight.png', // ضع صورة الأوتوبيس هنا
+                          'assets/search/train.png', // ضع صورة الأوتوبيس هنا
                           width: 40,
                           height: 40,
                         ),
@@ -46,19 +46,19 @@ class FlightTicket extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              ' تاركو للطيران ',
+                              ' الناقل الاخضر ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'AA-1264',
+                              ' B145523 ',
                               style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
+                              TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
                         ),
                         Spacer(),
-                        Text('\$165.05',
+                        Text('\$30.00',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class FlightTicket extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/search/flight.png"), // الصورة
+                        image: AssetImage("assets/search/train.png"), // الصورة
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -96,7 +96,7 @@ class FlightTicket extends StatelessWidget {
                             ),
                             Icon(Icons.flight, size: 25, color: Colors.white),
                             Text(
-                              ' السودان - نيالا \nSudan-NYL',
+                              ' السودان - مدني \nSudan-ATB',
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                   color: Colors.white,
@@ -136,19 +136,19 @@ class FlightTicket extends StatelessWidget {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                'الدرجة \n Economy',
+                                'الدرجة \n الاولي',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.start,
                               ),
                             ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                ' البوابة \n C11',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                            // Expanded(
+                            //   flex: 2,
+                            //   child: Text(
+                            //     ' البوابة \n C11',
+                            //     style: TextStyle(fontWeight: FontWeight.bold),
+                            //     textAlign: TextAlign.center,
+                            //   ),
+                            // ),
                             Expanded(
                               flex: 2,
                               child: Text(
@@ -211,9 +211,9 @@ class FlightTicket extends StatelessWidget {
                       ),
                       Expanded(
                           child: Divider(
-                        color: Colors.grey,
-                        thickness: 1,
-                      )),
+                            color: Colors.grey,
+                            thickness: 1,
+                          )),
                       Container(
                         width: 15,
                         height: 30,

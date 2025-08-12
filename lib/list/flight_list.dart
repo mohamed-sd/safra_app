@@ -172,7 +172,9 @@ class FlightList extends StatelessWidget {
           MaterialPageRoute(builder: (context) => FlightDetails()),
         );
       },
-      child: Card(
+      child:
+      Card(
+        color: Colors.white,
         margin: EdgeInsets.symmetric(vertical: 8),
         elevation: 6,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

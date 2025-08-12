@@ -38,17 +38,20 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-          child: Text(
-            widget.title,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Colors.black87,
-            ),
-          ),
+        SizedBox(
+          height: 10,
         ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+        //   child: Text(
+        //     widget.title,
+        //     style: const TextStyle(
+        //       fontSize: 15,
+        //       fontWeight: FontWeight.w400,
+        //       color: Colors.black87,
+        //     ),
+        //   ),
+        // ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 6),
           padding: const EdgeInsets.symmetric(horizontal: 10),

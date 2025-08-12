@@ -1,174 +1,118 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:safra_app/tickets/hotel_ticket.dart';
 
-class AppartmentsDetailes extends StatelessWidget {
-  final String title = "شقق مفروشة - الخرطوم";
-  final String location = "الخرطوم، السودان";
-  final double pricePerNight = 35000; // بالجنيه السوداني
-  final String description = '''
-استمتع بإقامة مميزة في شقق مفروشة راقية بوسط الخرطوم،
-قريبة من جميع الخدمات والمراكز التجارية، 
-مع تكييف، إنترنت مجاني، ومطبخ مجهز بالكامل.
-  ''';
+import '../tickets/appartment_ticket.dart';
+import '../widgets/custom_back_button.dart';
 
-  final List<String> images = [
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-    "https://images.unsplash.com/photo-1600585154526-990dced4df8a",
-    "https://images.unsplash.com/photo-1600585154184-1f3f76c71a52",
-  ];
+class AppartmentsDetailes extends StatefulWidget {
+  @override
+  _HotelDetailsScreenState createState() => _HotelDetailsScreenState();
+}
+
+class _HotelDetailsScreenState extends State<AppartmentsDetailes>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          // الصور القابلة للتمرير
-          PageView.builder(
-            itemCount: images.length,
-            itemBuilder: (context, index) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.network(
-                    images[index],
-                    fit: BoxFit.cover,
-                  ),
-                  // طبقة شفافة داكنة
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.7),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
 
-          // زر العودة
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.black45,
-                child: IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Navigator.pop(context),
+    _slideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+        );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // صور الفندق
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: PageView(
+                children: List.generate(5, (index) {
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'assets/hotels/hotel1.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black.withOpacity(0.5),
+                              Colors.transparent
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ),
+
+            // AppBar
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: Row(
+                  children: [
+                    CustomBackButton(),
+                    Spacer(),
+                    _circleButton(Icons.favorite_border, () {}),
+                  ],
                 ),
               ),
             ),
-          ),
 
-          // المحتوى السفلي
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: DraggableScrollableSheet(
-              initialChildSize: 0.45,
-              minChildSize: 0.45,
-              maxChildSize: 0.85,
+            // تفاصيل الفندق
+            DraggableScrollableSheet(
+              initialChildSize: 0.65,
+              minChildSize: 0.65,
+              maxChildSize: 1.0,
               builder: (context, scrollController) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-                  ),
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
+                return SlideTransition(
+                  position: _slideAnimation,
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    child: SingleChildScrollView(
+                      controller: scrollController,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // العنوان والموقع
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                title,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Icon(Icons.apartment, color: Colors.blue),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on, color: Colors.grey, size: 18),
-                              SizedBox(width: 4),
-                              Text(location, style: TextStyle(color: Colors.grey)),
-                            ],
-                          ),
-
-                          SizedBox(height: 15),
-
-                          // السعر
-                          Row(
-                            children: [
-                              Text(
-                                "${NumberFormat('#,###').format(pricePerNight)} SDG",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              SizedBox(width: 6),
-                              Text("لكل ليلة", style: TextStyle(color: Colors.grey)),
-                            ],
-                          ),
-
-                          SizedBox(height: 15),
-
-                          // الوصف
-                          Text(
-                            description,
-                            style: TextStyle(fontSize: 16, height: 1.5),
-                          ),
-
-                          SizedBox(height: 25),
-
-                          // زر احجز الآن مع أنيميشن
-                          Center(
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  backgroundColor: Colors.blue,
-                                  elevation: 5,
-                                ),
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("تم إرسال طلب الحجز")),
-                                  );
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.event_available, color: Colors.white),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      "احجز الآن",
-                                      style: TextStyle(fontSize: 18, color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          _hotelHeader(),
+                          Divider(height: 24),
+                          _amenities(),
+                          Divider(height: 24),
+                          _aboutHotel(),
+                          SizedBox(height: 20),
+                          _bookingCard(),
+                          SizedBox(height: 100),
                         ],
                       ),
                     ),
@@ -176,9 +120,191 @@ class AppartmentsDetailes extends StatelessWidget {
                 );
               },
             ),
+          ],
+        ),
+
+        // زر احجز الآن
+        bottomNavigationBar: GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>AppartmentTicket()));
+          },
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            height: 90,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              gradient: LinearGradient(
+                colors: [Colors.blue.shade700, Colors.blueAccent],
+              ),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("احجز الآن",
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                Spacer(),
+                Text("\$100.00",
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+                SizedBox(width: 5),
+                Text("لـ 2 أشخاص", style: TextStyle(color: Colors.white70)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _circleButton(IconData icon, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.4),
+          shape: BoxShape.circle,
+        ),
+        padding: EdgeInsets.all(8),
+        child: Icon(icon, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _hotelHeader() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(" شقة غرفتين ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text("الخرطوم", style: TextStyle(color: Colors.grey)),
+          ],
+        ),
+        Spacer(),
+        Icon(Icons.star, color: Colors.green, size: 20),
+        SizedBox(width: 4),
+        Text("4.7", style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(width: 8),
+        Text("تقييم 1.5k", style: TextStyle(color: Colors.grey)),
+      ],
+    );
+  }
+
+  Widget _amenities() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("وسائل الراحة",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _iconWithLabel(Icons.wifi, "WiFi"),
+            _iconWithLabel(Icons.ac_unit, "AC"),
+            _iconWithLabel(Icons.tv, "TV"),
+            _iconWithLabel(Icons.free_breakfast, "فطور"),
+            _iconWithLabel(Icons.local_laundry_service, "غسيل"),
+            _iconWithLabel(Icons.water, "سخان"),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _aboutHotel() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("حول",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        SizedBox(height: 8),
+        Text(
+          "فندق السلام روتانا من أعرق الفنادق في السودان ويوفر جميع وسائل الراحة...",
+          style: TextStyle(height: 1.5),
+          textAlign: TextAlign.justify,
+        ),
+      ],
+    );
+  }
+
+  Widget _bookingCard() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade300),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
+        ],
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _dateColumn("تاريخ الوصول", "15 أغسطس 2025"),
+                _dateColumn("تاريخ المغادرة", "20 أغسطس 2025"),
+              ],
+            ),
+          ),
+          Divider(height: 1, color: Colors.grey.shade300),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius:
+              BorderRadius.vertical(bottom: Radius.circular(16)),
+              gradient: LinearGradient(
+                colors: [Colors.blue, Colors.white],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                "حجز باسم: أحمد محمد",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white),
+              ),
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _dateColumn(String title, String date) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: TextStyle(color: Colors.grey)),
+        Text(date, style: TextStyle(fontWeight: FontWeight.bold)),
+      ],
+    );
+  }
+
+  Widget _iconWithLabel(IconData icon, String label) {
+    return Column(
+      children: [
+        Icon(icon, size: 28, color: Colors.blue),
+        SizedBox(height: 4),
+        Text(label, style: TextStyle(fontSize: 12)),
+      ],
     );
   }
 }

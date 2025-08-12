@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
-import '../hotelList.dart';
+import '../list/hotelList.dart';
 import '../trainList.dart';
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_drop_down.dart';
 
 class HotelSearch extends StatefulWidget {
   @override
@@ -77,7 +79,7 @@ class _HotelSearchState extends State<HotelSearch> {
           body: Column(
             children: [
               Container(
-                height: 300,
+                height: 200,
                 width: double.infinity,
                 child: Stack(
                   children: [
@@ -146,20 +148,51 @@ class _HotelSearchState extends State<HotelSearch> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _buildDatePicker('تاريخ الوصول', true),
-                            _buildDatePicker('تاريخ المغادرة', false),
-                            _buildDropdown('عدد البالغين', adults, (val) {
-                              setState(() => adults = val);
-                            }),
-                            _buildDropdown('عدد الأطفال', children, (val) {
-                              setState(() => children = val);
-                            }),
-                            _buildDropdown('عدد الأمتعة', luggage, (val) {
-                              setState(() => luggage = val);
-                            }),
-                            _buildDropdown('عدد الغرف', rooms, (val) {
-                              setState(() => rooms = val);
-                            }),
+                            CustomDatePicker(
+                              label: "حدد تاريخ الوصول",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
+                              },
+                            ),
+                            CustomDatePicker(
+                              label: "حدد تاريخ المغادرة",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
+                              },
+                            ),
+
+                            CustomDropdown<int>(
+                              title: "عدد الأطفال",
+                              hint: "اختر عدد الأطفال",
+                              icon: Icons.child_care,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأطفال: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد البالغين",
+                              hint: "اختر عدد البالغين",
+                              icon: Icons.person,
+                              items: List.generate(10, (index) => index + 1), // من 1 إلى 10
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد البالغين: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد الأمتعة",
+                              hint: "اختر عدد الأمتعة",
+                              icon: Icons.luggage,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأمتعة: $value");
+                              },
+                            ),
                           ],
                         ),
                       ),

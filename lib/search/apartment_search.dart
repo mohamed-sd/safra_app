@@ -1,16 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
+import 'package:safra_app/list/appartment_list.dart';
 
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_drop_down.dart';
 
 class ApartmentSearch extends StatefulWidget {
   @override
   _HotelSearchState createState() => _HotelSearchState();
 }
 
-class _HotelSearchState extends State<ApartmentSearch> {
+class _HotelSearchState extends State<ApartmentSearch>  {
   final _formKey = GlobalKey<FormState>();
   String? destination;
   DateTime? checkInDate;
@@ -23,9 +26,9 @@ class _HotelSearchState extends State<ApartmentSearch> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   final List<String> imagePaths = [
-    "assets/search/hotel.png",
-    "assets/search/hotel.png",
-    "assets/search/hotel.png",
+    "assets/hotels/hotel1.jpg",
+    "assets/hotels/hotel1.jpg",
+    "assets/hotels/hotel1.jpg",
   ];
 
   @override
@@ -75,7 +78,7 @@ class _HotelSearchState extends State<ApartmentSearch> {
           body: Column(
             children: [
               Container(
-                height: 300,
+                height: 200,
                 width: double.infinity,
                 child: Stack(
                   children: [
@@ -144,26 +147,82 @@ class _HotelSearchState extends State<ApartmentSearch> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _buildDatePicker('تاريخ الوصول', true),
-                            _buildDatePicker('تاريخ المغادرة', false),
-                            _buildDropdown('عدد البالغين', adults, (val) {
-                              setState(() => adults = val);
-                            }),
-                            _buildDropdown('عدد الأطفال', children, (val) {
-                              setState(() => children = val);
-                            }),
-                            _buildDropdown('عدد الأمتعة', luggage, (val) {
-                              setState(() => luggage = val);
-                            }),
-                            _buildDropdown('عدد الغرف', rooms, (val) {
-                              setState(() => rooms = val);
-                            }),
-                            _buildDropdown('عدد الحمامات', rooms, (val) {
-                              setState(() => rooms = val);
-                            }),
-                            _buildDropdown('عدد الصالات', rooms, (val) {
-                              setState(() => rooms = val);
-                            }),
+                            CustomDatePicker(
+                              label: "حدد تاريخ الوصول",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
+                              },
+                            ),
+                            CustomDatePicker(
+                              label: "حدد تاريخ المغادرة",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
+                              },
+                            ),
+
+                            CustomDropdown<int>(
+                              title: "عدد الأطفال",
+                              hint: "اختر عدد الأطفال",
+                              icon: Icons.child_care,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأطفال: $value");
+                              },
+                            ),
+
+                            CustomDropdown<int>(
+                              title: "عدد البالغين",
+                              hint: "اختر عدد البالغين",
+                              icon: Icons.person,
+                              items: List.generate(10, (index) => index + 1), // من 1 إلى 10
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد البالغين: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد الأمتعة",
+                              hint: "اختر عدد الأمتعة",
+                              icon: Icons.luggage,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأمتعة: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد الأمتعة",
+                              hint: "اختر عدد الغرف",
+                              icon: Icons.door_back_door_sharp,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأمتعة: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد الأمتعة",
+                              hint: "اختر عدد الحمامات",
+                              icon: Icons.bathroom,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأمتعة: $value");
+                              },
+                            ),
+                            CustomDropdown<int>(
+                              title: "عدد الأمتعة",
+                              hint: "اختر عدد الصالات",
+                              icon: Icons.chair,
+                              items: List.generate(6, (index) => index), // من 0 إلى 5
+                              itemLabel: (value) => "$value",
+                              onChanged: (value) {
+                                print("عدد الأمتعة: $value");
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -178,11 +237,10 @@ class _HotelSearchState extends State<ApartmentSearch> {
                     icon: Icons.door_back_door,
                     backgroundColor: Appcolors.primary,
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                        );
-                      }
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=>AppartmentList())
+                      );
                     },
                 ),
               )

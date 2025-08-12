@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/ticketBus.dart';
+import 'package:safra_app/tickets/cab_ticket.dart';
+import 'package:safra_app/tickets/flight_ticket.dart';
+import 'package:safra_app/tickets/hotel_ticket.dart';
+import 'package:safra_app/tickets/train_ticket.dart';
 
 import 'appColors.dart';
 
@@ -148,7 +152,7 @@ class Booksnav extends StatelessWidget {
                           // التنقل إلى صفحة التفاصيل لاحقًا
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TicketScreen()),
+                            MaterialPageRoute(builder: (context) => CabTicket()),
                           );
                         },
                       ),

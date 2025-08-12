@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:intl/intl.dart';
+import 'package:safra_app/appColors.dart';
 
+import '../detailes/train_detailes.dart';
 import '../widgets/custom_back_button.dart';
 
 class TrainList extends StatefulWidget {
@@ -17,221 +19,282 @@ class _TrainTicketResultsState extends State<TrainList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: Column(
-        children: [
-          // هيدر الصفحة مع صورة وخلفية متدرجة
-          Stack(
-            children: [
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/train_header.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.black.withOpacity(0.5), Colors.transparent],
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 40,
-                right: 10,
-                child: CustomBackButton(),
-              ),
-              Positioned(
-                bottom: 20,
-                left: 20,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Appcolors.background,
+      body: SingleChildScrollView(
+        child: // بطاقة النتيجة بتصميم احترافي
+            Expanded(child: Column(
+              children: [
+                Stack(
                   children: [
-                    Text("الخرطوم → مدني",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold)),
-                    SizedBox(height: 5),
-                    Text("عدد المسافرين: 2 | الدرجة: أولى",
-                        style: TextStyle(color: Colors.white, fontSize: 14)),
+                    Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/search/train.png'),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.black.withOpacity(0.5), Colors.transparent],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 40,
+                      right: 10,
+                      child: CustomBackButton(),
+                    ),
+                    Positioned(
+                      bottom: 20,
+                      right: 20,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("الخرطوم → مدني",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold)),
+                          SizedBox(height: 5),
+                          Text("عدد المسافرين: 2 | الدرجة: أولى",
+                              style: TextStyle(color: Colors.white, fontSize: 14)),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
 
-          // Tabs للتواريخ
-          Container(
-            height: 90,
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: days.length,
-              itemBuilder: (context, index) {
-                bool isSelected = index == selectedDay;
-                return GestureDetector(
-                  onTap: () => setState(() => selectedDay = index),
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 300),
-                    margin: EdgeInsets.symmetric(horizontal: 6),
-                    padding: EdgeInsets.all(10),
-                    width: 85,
-                    decoration: BoxDecoration(
-                      gradient: isSelected
-                          ? LinearGradient(
-                          colors: [Colors.blue, Colors.blueAccent])
-                          : null,
-                      color: isSelected ? null : Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                            offset: Offset(0, 3))
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(DateFormat.E('ar').format(days[index]),
-                            style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.black)),
-                        SizedBox(height: 4),
-                        Text(DateFormat.Md('ar').format(days[index]),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.black)),
-                        SizedBox(height: 4),
-                        Text("5000 SDG",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.green)),
-                      ],
-                    ),
+                Container(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+                      trainCard(),
+
+                    ],
                   ),
-                );
-              },
-            ),
-          ),
+                ),
+              ],
+            ),),
+      ),
+    );
+  }
 
-          // بطاقة النتيجة بتصميم احترافي
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              padding: EdgeInsets.all(10),
-              itemBuilder: (context, index) {
-                return FadeInUp(
-                  duration: Duration(milliseconds: 400 + (index * 100)),
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 6,
-                            offset: Offset(0, 4))
-                      ],
-                    ),
+  InkWell trainCard() {
+    return
+      InkWell(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>TrainDetailes()));
+        },
+        child: Column(
+          children: [
+            Card
+              (
+              color: Colors.white,
+                    margin: EdgeInsets.only(top: 5 , right: 5 , left: 5 , bottom: 3),
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                     child: Column(
                       children: [
-                        // الهيدر
                         Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(15)),
+                            color: Colors.blue.shade700,
                             gradient: LinearGradient(
-                              colors: [Colors.white, Colors.blue.shade300],
+                              colors: [ Colors.blue, Colors.white,],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                             ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                            ),
                           ),
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.train,
-                                      color: Colors.black87, size: 20),
-                                  SizedBox(width: 8),
-                                  Text("قطار النيل الأزرق",
+                                  Text('الناقل الاخضر',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
+                                          fontWeight: FontWeight.bold, color: Colors.black)),
+                                  SizedBox(width: 5,),
+                                  Text(' الخرطوم  ',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w100, color: Colors.black)),
                                 ],
                               ),
-                              Text("5000 SDG",
+                              Text('عرض الطريق',
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
+                                      color: Colors.white, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
-                        // الجسم
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: EdgeInsets.all(12),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              Image.asset(
+                                'assets/search/train.png', // ضع صورة الأوتوبيس هنا
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                              SizedBox(width: 5,),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("06:30",
+                                  Text('23 Jun, 12:35 am',
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  Text("الخرطوم",
-                                      style: TextStyle(color: Colors.grey)),
+                                          fontWeight: FontWeight.bold, fontSize: 13)),
+                                  Text('الخرطوم', style: TextStyle(fontSize: 10)),
                                 ],
                               ),
+                              Spacer(),
                               Column(
                                 children: [
-                                  Icon(Icons.more_horiz, color: Colors.grey),
-                                  Text("مباشر",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.grey)),
-                                  Text("3 س",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.grey)),
+                                  Text('الزمن', style: TextStyle(fontSize: 10)),
+                                  Container(
+                                    width: 60,
+                                    height: 2,
+                                    color: Colors.blue,
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                  ),
+                                  Text('2 h 12 m', style: TextStyle(fontSize: 10)),
                                 ],
                               ),
+                              Spacer(),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text("09:30",
+                                  Text('23 Jun, 12:35 am',
                                       style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  Text("مدني",
-                                      style: TextStyle(color: Colors.grey)),
+                                          fontWeight: FontWeight.bold, fontSize: 13)),
+                                  Text('مدني', style: TextStyle(fontSize: 10)),
                                 ],
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
-                );
-              },
+            SizedBox(
+              height: 38,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Card(
+                    elevation: 1,
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      margin: EdgeInsets.all(3),
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('درجة اولي ' , style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12
+                          ),),
+                          Text(' (\$30.00) -',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          )),
+                          Text(' 120',style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                            color: Colors.blue
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      margin: EdgeInsets.all(3),
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('درجة الثانية ' , style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          ),),
+                          Text(' (\$20.00) -',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          )),
+                          Text(' 78',style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                              color: Colors.blue
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 2,
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      margin: EdgeInsets.all(3),
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('  عادي ' , style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          ),),
+                          Text(' (\$18.00) -',style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12
+                          )),
+                          Text(' 100',style: TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 13,
+                              color: Colors.blue
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+            SizedBox(height: 5,)
+          ],
+        ),
+      );
   }
 }

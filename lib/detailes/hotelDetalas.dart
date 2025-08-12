@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/tickets/hotel_ticket.dart';
 
 import '../widgets/custom_back_button.dart';
 
@@ -124,9 +125,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
         // زر احجز الآن
         bottomNavigationBar: GestureDetector(
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("تم إرسال طلب الحجز 🎉")),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>HotelTicket()));
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),
