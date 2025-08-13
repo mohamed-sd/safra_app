@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/ticketBus.dart';
+import 'package:safra_app/tickets/appartment_ticket.dart';
+import 'package:safra_app/tickets/bus_ticket.dart';
 import 'package:safra_app/tickets/cab_ticket.dart';
 import 'package:safra_app/tickets/flight_ticket.dart';
 import 'package:safra_app/tickets/hotel_ticket.dart';
@@ -8,52 +10,30 @@ import 'package:safra_app/tickets/train_ticket.dart';
 import 'appColors.dart';
 
 class Booksnav extends StatelessWidget {
-   Booksnav({Key? key}) : super(key: key);
+  Booksnav({Key? key}) : super(key: key);
 
   final List<Tab> tabs = const [
     Tab(text: 'جميع الحجوزات'),
     Tab(text: 'الطيران'),
-    Tab(text: 'القطار'),
-    Tab(text: 'الفندق'),
-    Tab(text: 'الأوتوبيس'),
-    Tab(text: 'يوم الإجازة'),
-    Tab(text: 'الإقامة'),
-    Tab(text: 'أخرى'),
+    Tab(text: 'البواخر'),
+    Tab(text: 'القطارات'),
+    Tab(text: 'الباصات'),
+    Tab(text: 'الحافلات'),
+    Tab(text: 'سيارات اجرة'),
+    Tab(text: 'الفنادق'),
+    Tab(text: 'الشقق'),
   ];
 
   final List<Image> icons = [
-    Image.asset(
-      'assets/book.png',
-      height: 40,
-    ),       // جميع الحجوزات
-    Image.asset(
-      'assets/homeHead/ic_flight.png',
-      height: 40,
-    ),           // طيران
-    Image.asset(
-      'assets/homeHead/ic_train.png',
-      height: 40,
-    ),           // قطار
-    Image.asset(
-      'assets/homeHead/ic_hotels.png',
-      height: 40,
-    ),             // فندق
-    Image.asset(
-      'assets/homeHead/ic_bus.png',
-      height: 40,
-    ),   // أوتوبيس
-    Image.asset(
-      'assets/homeHead/ic_holiday.png',
-      height: 40,
-    ),     // يوم الإجازة
-    Image.asset(
-      'assets/homeHead/ic_homestay.png',
-      height: 40,
-    ),              // الإقامة
-    Image.asset(
-      'assets/homeHead/ic_more.png',
-      height: 40,
-    ),       // أخرى
+    Image.asset('assets/book.png', height: 40), // جميع الحجوزات
+    Image.asset('assets/homeHead/ic_flight.png', height: 40), // طيران
+    Image.asset('assets/homeHead/ic_flight.png', height: 40), // البواخر
+    Image.asset('assets/homeHead/ic_train.png', height: 40), // القطارات
+    Image.asset('assets/homeHead/ic_bus.png', height: 40), // الباصات
+    Image.asset('assets/homeHead/ic_bus.png', height: 40), // الحافلات
+    Image.asset('assets/homeHead/ic_cabs.png', height: 40), // سيارات الاجرة
+    Image.asset('assets/homeHead/ic_hotels.png', height: 40),// الفنادق
+    Image.asset('assets/homeHead/ic_hotels.png', height: 40),// الشقق
   ];
 
   final List<List<Map<String, dynamic>>> bookingsData = const [
@@ -63,27 +43,31 @@ class Booksnav extends StatelessWidget {
       {'title': 'أوتوبيس إلى الأسكندرية', 'desc': '5 مساءً', 'price': 120},
     ],
     [
-      {'title': 'طيران إلى دنقلا', 'desc': '8 صباحًا', 'price': 950},
+      {'title': 'طيران إلى نيالا', 'desc': '8 صباحًا', 'price': 950},
       {'title': 'طيران إلى كسلا', 'desc': '2 مساءً', 'price': 3200},
     ],
     [
-      {'title': 'قطار عطبرة إلى الخرطوم', 'desc': '11 صباحًا', 'price': 60},
+
     ],
     [
+      {'title': ' قطار الخرطوم مدني ', 'desc': '11 صباحًا', 'price': 60},
+    ],
+    [
+      {'title': 'بص عطبرة ', 'desc': 'يوم الإثنين', 'price': 9000},
+      {'title': 'بص الدمازين ', 'desc': 'يوم الإثنين', 'price': 18000},
+    ],
+    [
+      {'title': ' الخرطوم الصحافة ', 'desc': 'الجمعة القادمة', 'price': 350},
+    ],
+    [
+      {'title': ' مشورا الي امدرمان  ', 'desc': ' غدا ', 'price': 3000},
+    ],
+    [
+      {'title': 'فندق سلام روتانا', 'desc': 'ليلتان - مفردة', 'price': 9500},
       {'title': 'فندق النيل', 'desc': '4 ليالٍ - مزدوج', 'price': 2200},
-      {'title': 'فندق السلام', 'desc': 'ليلتان - مفردة', 'price': 950},
     ],
     [
-      {'title': 'بص الدمازين ', 'desc': 'يوم الإثنين', 'price': 90},
-    ],
-    [
-      {'title': 'رحلة جبلية', 'desc': 'الجمعة القادمة', 'price': 350},
-    ],
-    [
-      {'title': 'إقامة طويلة بالدامر', 'desc': 'حتى نهاية الشهر', 'price': 3000},
-    ],
-    [
-      {'title': 'حجز خاص', 'desc': 'يحتاج مراجعة', 'price': 0},
+      {'title': ' شقة بحري المهندسين ', 'desc': ' 2 غرفة 3 حمام ', 'price': 200000},
     ],
   ];
 
@@ -98,11 +82,12 @@ class Booksnav extends StatelessWidget {
             backgroundColor: Appcolors.Appbackground,
             appBar: AppBar(
               backgroundColor: Colors.white,
-              title: Text('حجوزاتي'),
+              title: const Text('حجوزاتي'),
               bottom: TabBar(
                 labelColor: Colors.blue,
                 unselectedLabelColor: Colors.grey,
-                labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                labelStyle: const TextStyle(
+                    fontSize: 15, fontWeight: FontWeight.bold),
                 isScrollable: true,
                 indicatorColor: Colors.blue,
                 tabs: tabs,
@@ -125,35 +110,107 @@ class Booksnav extends StatelessWidget {
                       ),
                       elevation: 2,
                       margin: const EdgeInsets.symmetric(vertical: 5),
-                      child:
-                      ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 15 , vertical: 0),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 0),
                         leading: icon,
-                        title:  Container(
-                          child: Text(
-                            'السعر: ${booking['price']} جنيه',
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w800 , fontSize: 16),
-                          ) ),
+                        title: Text(
+                          'السعر: ${booking['price']} جنيه',
+                          style: const TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 16),
+                        ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                           Text(
-                          booking['title'],
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                        ),
-
-                            Text(booking['desc'], style: TextStyle(color: Colors.grey[600] , fontSize: 11)),
-                            SizedBox(height: 5),
-
+                            Text(
+                              booking['title'],
+                              style: const TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              booking['desc'],
+                              style: TextStyle(
+                                  color: Colors.grey[600], fontSize: 11),
+                            ),
+                            const SizedBox(height: 5),
                           ],
                         ),
-                        trailing: Icon(Icons.keyboard_double_arrow_left, size: 30 , color: Colors.blue,),
+                        trailing: const Icon(
+                          Icons.keyboard_double_arrow_left,
+                          size: 30,
+                          color: Colors.blue,
+                        ),
                         onTap: () {
-                          // التنقل إلى صفحة التفاصيل لاحقًا
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CabTicket()),
-                          );
+                          switch (tabIndex) {
+                            case 0: // جميع الحجوزات
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>  CabTicket()),
+                              // );
+                              break;
+                            case 1: // الطيران
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  FlightTicket()),
+                              );
+                              break;
+                            case 2: // البواخر
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>  TrainTicket()),
+                              // );
+                              break;
+                            case 3: // القطار
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  TrainTicket()),
+                            );
+                              break;
+                            case 4: // الباصات
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  BusTicket()),
+                            );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) =>  HotelTicket()),
+                              // );
+                              break;
+                            case 6: // سسارات الاجرة
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  CabTicket()),
+                              );
+                              break;
+                            case 7: // سسارات الاجرة
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  HotelTicket()),
+                              );
+                              break;
+                            case 8: // سسارات الاجرة
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  AppartmentTicket()),
+                              );
+                              break;
+                            default:
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text("لا توجد صفحة مخصصة لهذا التبويب")),
+                              );
+                          }
                         },
                       ),
                     );

@@ -181,7 +181,7 @@ class _HotelDetailsScreenState extends State<AppartmentsDetailes>
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(" شقة غرفتين ",
+            Text(" شقة المنشية ",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Text("الخرطوم", style: TextStyle(color: Colors.grey)),
           ],
@@ -209,9 +209,9 @@ class _HotelDetailsScreenState extends State<AppartmentsDetailes>
             _iconWithLabel(Icons.wifi, "WiFi"),
             _iconWithLabel(Icons.ac_unit, "AC"),
             _iconWithLabel(Icons.tv, "TV"),
-            _iconWithLabel(Icons.free_breakfast, "فطور"),
-            _iconWithLabel(Icons.local_laundry_service, "غسيل"),
-            _iconWithLabel(Icons.water, "سخان"),
+            _iconWithLabel(Icons.line_weight, "الطابق 3"),
+            _iconWithLabel(Icons.door_back_door_sharp, "3 غرف"),
+            _iconWithLabel(Icons.bathroom, "2 حمام"),
           ],
         ),
       ],
@@ -226,7 +226,7 @@ class _HotelDetailsScreenState extends State<AppartmentsDetailes>
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         SizedBox(height: 8),
         Text(
-          "فندق السلام روتانا من أعرق الفنادق في السودان ويوفر جميع وسائل الراحة...",
+          " شقة ثلالثة غرف وحمامين ورسيبشن مقفلة تقيل هايلوكس ما فيها ولا شختة كهرباء وموية وخدمات بها مطبخ مع دولاب عدة مرفق وبها الكثير من المميزات بحري المنشية جوار تقاطع عمارة الفوزيتان  ",
           style: TextStyle(height: 1.5),
           textAlign: TextAlign.justify,
         ),

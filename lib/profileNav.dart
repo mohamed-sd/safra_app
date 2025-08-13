@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/login.dart';
-import 'package:safra_app/project.dart';
+import 'package:safra_app/setting/privecy.dart';
+import 'package:safra_app/setting/project.dart';
+import 'package:safra_app/setting/about.dart';
+import 'package:safra_app/setting/support.dart';
 
 import 'appColors.dart';
 
@@ -66,9 +69,22 @@ class Profilenav extends StatelessWidget {
                 SizedBox(height: 10),
 
                 // 🟦 قائمة العناصر
-                buildMenuItem(Icons.support_agent, 'الدعم'),
-                buildMenuItem(Icons.info_outline, 'معلومات عنا'),
-                buildMenuItem(Icons.description_outlined, 'البنود والظروف'),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Support()));
+                    },
+                    child: buildMenuItem(Icons.support_agent, 'الدعم')),
+
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
+                    },
+                    child: buildMenuItem(Icons.info_outline, 'معلومات عنا')),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Privecy()));
+                    },
+                    child: buildMenuItem(Icons.description_outlined, ' سياسة الخصوصية ')),
 
 
                 InkWell(

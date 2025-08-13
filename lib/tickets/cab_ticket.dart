@@ -94,7 +94,7 @@ class CabTicket extends StatelessWidget {
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Icon(Icons.flight, size: 25, color: Colors.white),
+                            // Icon(Icons.flight, size: 25, color: Colors.white),
                             Text(
                               ' السودان - امدرمان \nSudan-OMD',
                               textAlign: TextAlign.end,
