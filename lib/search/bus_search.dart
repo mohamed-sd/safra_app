@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
+import 'package:safra_app/list/bus_list.dart';
 
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_drop_down.dart';
 
 class BusSearch extends StatefulWidget {
   @override
@@ -170,29 +173,34 @@ class _FlightSearchState extends State<BusSearch> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _buildDatePicker('حدد التاريخ ', true),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            DropdownButtonFormField<String>(
-                              value: travelClass,
-                              decoration: InputDecoration(
-                                labelText: 'نوع الباص',
-                                prefixIcon: Icon(Icons.event_seat),
-                                border: OutlineInputBorder(),
-                              ),
-                              items: ['ابو عامر', 'العزيزية', 'الدهاب']
-                                  .map((classType) => DropdownMenuItem(
-                                        value: classType,
-                                        child: Text(classType),
-                                      ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  travelClass = value!;
-                                });
+                            CustomDatePicker(
+                              label: "حدد التاريخ ",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
                               },
-                            )
+                            ),
+                            CustomDropdown<String>(
+                              title: "الدرجة",
+                              hint: " شركة الباص ",
+                              icon: Icons.bus_alert_rounded,
+                              items: ["حدباي", "العزيزية", "ابوعامر" , "المتوكل"],
+                              itemLabel: (value) => value,
+                              onChanged: (value) {
+                                print("الدرجة: $value");
+                              },
+                            ),
+                            CustomDropdown<String>(
+                              title: "الدرجة",
+                              hint: " نوع الباص ",
+                              icon: Icons.bus_alert_rounded,
+                              items: ["سياحي ", " مظلل ", " مكييف " , " خدمات "],
+                              itemLabel: (value) => value,
+                              onChanged: (value) {
+                                print("الدرجة: $value");
+                              },
+                            ),
+
                           ],
                         ),
                       ),
@@ -208,9 +216,7 @@ class _FlightSearchState extends State<BusSearch> {
                   backgroundColor: Appcolors.primary,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                      );
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>BusList()));
                     }
                   },
                 ),
