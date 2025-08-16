@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/home.dart';
+import 'package:safra_app/sign_up.dart';
 import 'appColors.dart';
 import 'detailes/hotelDetalas.dart'; // استدعاء ملف الألوان
 
@@ -115,9 +116,14 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
 
                       },
-                      child: Text(
-                        'إنشاء حساب جديد',
-                        style: TextStyle(color: Appcolors.primary),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                        },
+                        child: Text(
+                          'إنشاء حساب جديد',
+                          style: TextStyle(color: Appcolors.primary),
+                        ),
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/language.dart';
 import 'package:safra_app/login.dart';
 import 'package:safra_app/setting/privecy.dart';
 import 'package:safra_app/setting/project.dart';
@@ -97,7 +98,14 @@ class Profilenav extends StatelessWidget {
                     child: buildMenuItem(Icons.work_outline, 'مشاريعي ')),
 
 
-                buildMenuItem(Icons.language, 'تغيير اللغة'),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Language()),
+                      );
+                    },
+                    child: buildMenuItem(Icons.language, 'تغيير اللغة')),
                 buildMenuItem(Icons.share, 'شارك التطبيق'),
                 buildMenuItem(Icons.star_border, 'قيّم التطبيق'),
                 InkWell(

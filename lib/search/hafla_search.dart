@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
+import 'package:safra_app/list/hafla_list.dart';
 
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_drop_down.dart';
 
 class HaflaSearch extends StatefulWidget {
   @override
@@ -48,24 +51,6 @@ class _FlightSearchState extends State<HaflaSearch> {
         }
       });
     });
-  }
-
-  Future<void> _selectDate(BuildContext context, bool isDeparture) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      setState(() {
-        if (isDeparture) {
-          departureDate = picked;
-        } else {
-          returnDate = picked;
-        }
-      });
-    }
   }
 
   @override
@@ -170,27 +155,23 @@ class _FlightSearchState extends State<HaflaSearch> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _buildDatePicker('حدد التاريخ ', true),
-                            SizedBox(height: 10,),
-                            DropdownButtonFormField<String>(
-                              value: travelClass,
-                              decoration: InputDecoration(
-                                labelText: 'نوع الحافلة',
-                                prefixIcon: Icon(Icons.event_seat),
-                                border: OutlineInputBorder(),
-                              ),
-                              items: ['هايس', 'كريز', '25 راكب' ,'50 راكب']
-                                  .map((classType) => DropdownMenuItem(
-                                value: classType,
-                                child: Text(classType),
-                              ))
-                                  .toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  travelClass = value!;
-                                });
+                            CustomDatePicker(
+                              label: "حدد التاريخ ",
+                              initialDate: DateTime.now(),
+                              onDateSelected: (date) {
+                                print("تم اختيار التاريخ: $date");
                               },
-                            )
+                            ),
+                            CustomDropdown<String>(
+                              title: "الدرجة",
+                              hint: " نوع الحافلة ",
+                              icon: Icons.bus_alert_rounded,
+                              items: ['هايس', 'كريز', '25 راكب' ,'50 راكب'],
+                              itemLabel: (value) => value,
+                              onChanged: (value) {
+                                print("الدرجة: $value");
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -205,11 +186,10 @@ class _FlightSearchState extends State<HaflaSearch> {
                     icon: Icons.directions_bus_rounded,
                     backgroundColor: Appcolors.primary,
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('جارٍ تنفيذ الحجز...')),
-                        );
-                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HaflaList()),
+                      );
                     },
                   ),
 
@@ -221,151 +201,4 @@ class _FlightSearchState extends State<HaflaSearch> {
     );
   }
 
-  Widget _buildRoundTripForm() {
-    return Column(
-      children: [
-        _buildDatePicker('تاريخ المغادرة', true),
-        _buildDatePicker('تاريخ العودة', false),
-        _buildPassengerFields(),
-      ],
-    );
-  }
-
-  Widget _buildOneWayForm() {
-    return Column(
-      children: [
-        _buildDatePicker('تاريخ المغادرة', true),
-        _buildPassengerFields(),
-      ],
-    );
-  }
-
-  Widget _buildMultiCityForm() {
-    return Column(
-      children: [
-        _buildCityRow('الرحلة الأولى'),
-        _buildDatePicker('تاريخ المغادرة', true),
-        Divider(),
-        _buildCityRow('الرحلة الثانية'),
-        _buildDatePicker('تاريخ الرجوع', false),
-        _buildPassengerFields(),
-      ],
-    );
-  }
-
-  Widget _buildCityRow(String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'من'),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: TextFormField(
-                decoration: InputDecoration(labelText: 'إلى'),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDatePicker(String label, bool isDeparture) {
-    DateTime? selectedDate = isDeparture ? departureDate : returnDate;
-    return ListTile(
-      leading: Icon(Icons.calendar_today),
-      title: Text(
-        selectedDate == null
-            ? label
-            : '$label: ${selectedDate.toLocal()}'.split(' ')[0],
-      ),
-      onTap: () => _selectDate(context, isDeparture),
-    );
-  }
-
-  Widget _buildPassengerFields() {
-    return Column(
-      children: [
-        _buildCounter('عدد البالغين', passengers, (val) {
-          setState(() => passengers = val);
-        }),
-        _buildCounter('عدد الأطفال', children, (val) {
-          setState(() => children = val);
-        }),
-        _buildCounter('عدد الأمتعة', luggage, (val) {
-          setState(() => luggage = val);
-        }),
-        SizedBox(height: 10),
-        DropdownButtonFormField<String>(
-          value: travelClass,
-          decoration: InputDecoration(
-            labelText: 'اختر المقطورة',
-            prefixIcon: Icon(Icons.event_seat),
-            border: OutlineInputBorder(),
-          ),
-          items: ['اقتصادية', 'رجال أعمال', 'الدرجة الأولى']
-              .map((classType) => DropdownMenuItem(
-            value: classType,
-            child: Text(classType),
-          ))
-              .toList(),
-          onChanged: (value) {
-            setState(() {
-              travelClass = value!;
-            });
-          },
-        )
-      ],
-    );
-  }
-
-  Widget _buildCounter(String label, int value, Function(int) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: DropdownButtonFormField<int>(
-        value: value,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(),
-        ),
-        items: List.generate(6, (index) => index)
-            .map((number) => DropdownMenuItem(
-          value: number,
-          child: Text(number.toString()),
-        ))
-            .toList(),
-        onChanged: (val) {
-          if (val != null) onChanged(val);
-        },
-      ),
-    );
-  }
-  Widget _buildDropdown(String label, int value, Function(int) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: DropdownButtonFormField<int>(
-        value: value,
-        decoration: InputDecoration(
-          labelText: label,
-          border: OutlineInputBorder(),
-        ),
-        items: List.generate(6, (index) => index)
-            .map((number) => DropdownMenuItem(
-          value: number,
-          child: Text(number.toString()),
-        ))
-            .toList(),
-        onChanged: (val) {
-          if (val != null) onChanged(val);
-        },
-      ),
-    );
-  }
 }
