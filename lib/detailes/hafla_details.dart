@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../appColors.dart';
+import '../confirm/hafla_confirm.dart';
 import '../tickets/hafla_ticket.dart';
 import '../widgets/custom_back_button.dart';
 
 class HaflaDetails extends StatelessWidget {
   final int totalSeats = 50;
-  final List<int> availableSeats = [5, 17, 32]; // المقاعد المتاحة
+  final List<int> availableSeats = [5, 17, 23]; // المقاعد المتاحة
 
   @override
   Widget build(BuildContext context) {
@@ -143,13 +144,17 @@ class HaflaDetails extends StatelessWidget {
             // زر الحجز
             InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> HaflaTicket()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> HaflaConfirm()));
               },
               child: Container(
-                height: 60,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.symmetric(horizontal: 15 , vertical: 15),
+                margin: EdgeInsets.symmetric(vertical: 15),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Colors.blue.shade800, Colors.blue]),
+                    gradient: LinearGradient(colors: [Colors.blue.shade800, Colors.blue]),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    )
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,8 +162,8 @@ class HaflaDetails extends StatelessWidget {
                     Text("BOOK SEAT", style: TextStyle(color: Colors.white, fontSize: 16)),
                     Row(
                       children: [
-                        Text("1 المقعد ", style: TextStyle(color: Colors.white, fontSize: 14)),
-                        Text(" 90.50 \$", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text("23 المقعد ", style: TextStyle(color: Colors.white, fontSize: 14)),
+                        Text(" 3.000 SDG", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ],

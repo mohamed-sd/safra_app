@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
 import '../appColors.dart';
+import '../home.dart';
 
 class BusTicket extends StatelessWidget {
   @override
@@ -13,7 +14,11 @@ class BusTicket extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: Icon(Icons.arrow_back, color: Colors.white),
+          leading: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen()));
+              },
+              child: Icon(Icons.arrow_back, color: Colors.white)),
           centerTitle: true,
           title: Text(
             'حجزت تذكرة',
@@ -58,7 +63,7 @@ class BusTicket extends StatelessWidget {
                           ],
                         ),
                         Spacer(),
-                        Text('\$105.00',
+                        Text('60.000 SDG',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

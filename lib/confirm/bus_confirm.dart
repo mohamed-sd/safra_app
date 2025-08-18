@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 import 'package:safra_app/pay/payment.dart';
+import 'package:safra_app/tickets/bus_ticket.dart';
+import 'package:safra_app/tickets/train_ticket.dart';
 import '../widgets/custom_back_button.dart';
 
-class ShapConfirm extends StatefulWidget {
+class BusConfirm extends StatefulWidget {
   @override
-  State<ShapConfirm> createState() => _ShapConfirmState();
+  State<BusConfirm> createState() => _FlightConfirmState();
 }
 
-class _ShapConfirmState extends State<ShapConfirm>
+class _FlightConfirmState extends State<BusConfirm>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _slideAnimation;
@@ -21,10 +23,12 @@ class _ShapConfirmState extends State<ShapConfirm>
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 800));
 
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.1), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    _slideAnimation =
+        Tween<Offset>(begin: Offset(0, 0.1), end: Offset.zero).animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _fadeAnimation =
+        Tween<double>(begin: 0, end: 1).animate(_controller);
 
     _controller.forward();
   }
@@ -35,19 +39,16 @@ class _ShapConfirmState extends State<ShapConfirm>
     super.dispose();
   }
 
-  Widget buildInfoItem(String title, String value,
-      {IconData? icon, Color? iconColor}) {
+  Widget buildInfoItem(String title, String value, {IconData? icon, Color? iconColor}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: TextStyle(color: Colors.grey)),
         Row(
           children: [
-            if (icon != null)
-              Icon(icon, color: iconColor ?? Colors.blue, size: 20),
+            if (icon != null) Icon(icon, color: iconColor ?? Colors.blue, size: 20),
             if (icon != null) SizedBox(width: 5),
-            Text(value,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],
         ),
       ],
@@ -81,13 +82,13 @@ class _ShapConfirmState extends State<ShapConfirm>
                       ],
                     ),
                     SizedBox(height: 20),
-                    // Header Info
+
                     Container(
                       padding: EdgeInsets.all(10),
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/search/flight.png',
+                            'assets/search/bus.png',
                             width: 40,
                             height: 40,
                             fit: BoxFit.cover,
@@ -99,14 +100,14 @@ class _ShapConfirmState extends State<ShapConfirm>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '  باخرة السلام ',
+                                ' ابو عامر ',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
                               Text(
-                                ' بورسودان -  الميناء  ',
+                                ' باص تاتا مكيف ',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w200,
@@ -139,13 +140,13 @@ class _ShapConfirmState extends State<ShapConfirm>
                         children: [
                           buildInfoItem(
                             "المغادرة من",
-                            "KRT - ميناء بورسودان، السودان",
+                            "KRT - الخرطوم، السودان",
                             icon: Icons.flight_takeoff,
                           ),
                           SizedBox(height: 10),
                           buildInfoItem(
                             "الوصول إلى",
-                            "NYL - ميناء جدة، السعوديه",
+                            "ATB - عطبرة، السودان",
                             icon: Icons.flight_land,
                           ),
                         ],
@@ -169,7 +170,7 @@ class _ShapConfirmState extends State<ShapConfirm>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildInfoItem("تاريخ", "20 أغسطس، 6:30 ص"),
+                          buildInfoItem("مغادرة", "20 أغسطس، 6:30 ص"),
                           buildInfoItem("وصول", "20 أغسطس، 8:15 ص"),
                         ],
                       ),
@@ -192,9 +193,9 @@ class _ShapConfirmState extends State<ShapConfirm>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildInfoItem("بوابة", "A5"),
-                          buildInfoItem("مقعد", "12C"),
-                          buildInfoItem("صف دراسي", "Economy"),
+                          // buildInfoItem("الدرجة", "إقتصادية"),
+                          buildInfoItem("عدد المقاعد", "50"),
+                          buildInfoItem("رقم المقعد", "23"),
                         ],
                       ),
                     ),
@@ -219,21 +220,21 @@ class _ShapConfirmState extends State<ShapConfirm>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("رسوم الأجرة"),
-                              Text("120.00 \$"),
+                              Text("50.000 SDG"),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("رسوم الرحلة"),
-                              Text("8.00 \$"),
+                              Text("10.000 SDG"),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("رسوم الإلغاء"),
-                              Text("5.00 \$"),
+                              Text("05.000 SDG"),
                             ],
                           ),
                         ],
@@ -244,8 +245,10 @@ class _ShapConfirmState extends State<ShapConfirm>
                     // زر الدفع
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Payment()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context)=>BusTicket())
+                        );
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 14),
@@ -265,7 +268,7 @@ class _ShapConfirmState extends State<ShapConfirm>
                         ),
                         child: Center(
                           child: Text(
-                            "مواصلة الدفع 133.00\$",
+                            "مواصلة الدفع 60.000 SDG",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,

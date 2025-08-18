@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 import 'package:safra_app/confirm/flight_confirm.dart';
-import '../confirm/shap_confirm.dart';
+import '../confirm/ship_confirm.dart';
 import '../widgets/custom_back_button.dart';
 
-class ShapDetails extends StatefulWidget {
+class ShipDetails extends StatefulWidget {
   final String? fromCity;
   final String? toCity;
 
-  const ShapDetails({Key? key, this.fromCity, this.toCity}) : super(key: key);
+  const ShipDetails({Key? key, this.fromCity, this.toCity}) : super(key: key);
 
   @override
-  State<ShapDetails> createState() => _ShapDetailsState();
+  State<ShipDetails> createState() => _ShipDetailsState();
 }
 
-class _ShapDetailsState extends State<ShapDetails>
+class _ShipDetailsState extends State<ShipDetails>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
@@ -176,7 +176,7 @@ class _ShapDetailsState extends State<ShapDetails>
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ShapConfirm()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ShipConfirm()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

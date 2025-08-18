@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:safra_app/appColors.dart';
 
-import '../carlist.dart';
+import '../list/carlist.dart';
 import '../trainList.dart';
 import '../widgets/custom_action_button.dart';
 import '../widgets/custom_back_button.dart';
@@ -11,10 +11,10 @@ import '../widgets/custom_drop_down.dart';
 
 class CabSearch extends StatefulWidget  {
   @override
-  _FlightSearchState createState() => _FlightSearchState();
+  _CabSearchState createState() => _CabSearchState();
 }
 
-class _FlightSearchState extends State<CabSearch> with SingleTickerProviderStateMixin {
+class _CabSearchState extends State<CabSearch> with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   String? fromCity;
   String? toCity;
@@ -229,7 +229,7 @@ class _FlightSearchState extends State<CabSearch> with SingleTickerProviderState
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                CarListScreen()),
+                                Carlist()),
                       );
                     },
                   ),

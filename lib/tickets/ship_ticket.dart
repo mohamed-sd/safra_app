@@ -4,7 +4,7 @@ import 'package:barcode_widget/barcode_widget.dart';
 import '../appColors.dart';
 import '../home.dart';
 
-class CabTicket extends StatelessWidget {
+class ShipTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,7 +21,7 @@ class CabTicket extends StatelessWidget {
               child: Icon(Icons.arrow_back, color: Colors.white)),
           centerTitle: true,
           title: Text(
-            ' تم حجز سيارة ',
+            'حجزت تذكرة',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         ),
@@ -42,7 +42,7 @@ class CabTicket extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/search/cab.png', // ضع صورة الأوتوبيس هنا
+                          'assets/search/flight.png', // ضع صورة الأوتوبيس هنا
                           width: 40,
                           height: 40,
                         ),
@@ -51,19 +51,19 @@ class CabTicket extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'اكسنت دبدوب ',
+                              ' باخرة السلام ',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              ' سيارة صالون ',
+                              'بورتسودان - الميناء',
                               style:
                               TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
                         ),
                         Spacer(),
-                        Text('40.000 SDG',
+                        Text('\$133.00',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class CabTicket extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/search/cab.png"), // الصورة
+                        image: AssetImage("assets/search/flight.png"), // الصورة
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -93,7 +93,7 @@ class CabTicket extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              ' السودان - الخرطوم \nSudan-KTR',
+                              ' السودان - بورتسودان \nSudan-POR',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -101,7 +101,7 @@ class CabTicket extends StatelessWidget {
                             ),
                             // Icon(Icons.flight, size: 25, color: Colors.white),
                             Text(
-                              ' السودان - امدرمان \nSudan-OMD',
+                              ' السعودية - جدة \nSudan-GAD',
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                   color: Colors.white,
@@ -124,11 +124,11 @@ class CabTicket extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              ' تاريخ المشوار \nJun 23',
+                              'مغادرة\nJun, 12:35 am 23',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'معاد المشوار \n 11:45 pm ',
+                              'وصول\nJun, 11:45 pm 24',
                               style: TextStyle(fontWeight: FontWeight.bold),
                               textAlign: TextAlign.end,
                             ),
@@ -141,23 +141,23 @@ class CabTicket extends StatelessWidget {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                'سعة السيارة \n 4 مسافر',
+                                'الدرجة \n Economy',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.start,
                               ),
                             ),
-                            // Expanded(
-                            //   flex: 2,
-                            //   child: Text(
-                            //     ' البوابة \n C11',
-                            //     style: TextStyle(fontWeight: FontWeight.bold),
-                            //     textAlign: TextAlign.center,
-                            //   ),
-                            // ),
                             Expanded(
                               flex: 2,
                               child: Text(
-                                ' الامتعة  \n 2 شنطة',
+                                ' البوابة \n C11',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                ' المقعد \n B12',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.end,
                               ),
@@ -233,28 +233,14 @@ class CabTicket extends StatelessWidget {
                   ),
 
                   // باركود
-
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15 , vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('تويوتا - صفراء' , style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600
-                            ),),
-                            Text(' رقم اللوحة - 1 2 3 ح خ ' , style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 13
-                            )),
-                          ],
-                        ),
-                        Image.asset('assets/search/cab.png' , width: 75,)
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: BarcodeWidget(
+                      barcode: Barcode.code128(),
+                      data: '01 18901072 00015 0 (17) 190831 (10) LM123',
+                      width: double.infinity,
+                      height: 80,
+                      drawText: false,
                     ),
                   ),
                 ],
@@ -262,7 +248,7 @@ class CabTicket extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              ' استدعاء سائق الكابينة ',
+              'تذكرة الفجر',
               style: TextStyle(color: Colors.white, fontSize: 16),
             )
           ],

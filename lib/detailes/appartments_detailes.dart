@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/confirm/apartment_confirm.dart';
 import 'package:safra_app/tickets/hotel_ticket.dart';
 
 import '../tickets/appartment_ticket.dart';
@@ -126,7 +127,7 @@ class _HotelDetailsScreenState extends State<AppartmentsDetailes>
         // زر احجز الآن
         bottomNavigationBar: GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>AppartmentTicket()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ApartmentConfirm()));
           },
           child: AnimatedContainer(
             duration: Duration(milliseconds: 300),

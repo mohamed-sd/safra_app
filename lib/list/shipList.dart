@@ -5,7 +5,7 @@ import 'package:safra_app/appColors.dart';
 import 'package:safra_app/detailes/flight_details.dart';
 import 'package:safra_app/widgets/custom_back_button.dart';
 
-import '../detailes/shap_details.dart';
+import '../detailes/ship_details.dart';
 
 class ShipList extends StatelessWidget {
   final String fromCity = "ميناء بورسودان";
@@ -172,7 +172,7 @@ class ShipList extends StatelessWidget {
       onTap: (){
         Navigator.push(
           cxt!,
-          MaterialPageRoute(builder: (context) => ShapDetails()),
+          MaterialPageRoute(builder: (context) => ShipDetails()),
         );
       },
       child:
