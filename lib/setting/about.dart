@@ -41,47 +41,35 @@ class About extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-                    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-                    "when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
-                    "It has survived not only five centuries,",
+                " نحن: منصة سفرة - بوابتك نحو آفاق لا حدود لها "
+                    ,
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
               const SizedBox(height: 8),
               const Text(
-                "It is a long established fact that a reader will be distracted by the readable content of a page "
-                    "when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution "
-                    "of letters, as opposed to using 'Content here, content here', making it look like readable English. "
-                    "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, "
-                    "and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+                "  في عالم يتسارع، حيث تتشابك الرغبات مع الفرص، تبرز منصة سفرة كوجهتك الذكية والملهمة لاستكشاف عوالم جديدة من السفر والإقامة. نحن نؤمن بأن كل رحلة هي قصة، وكل إقامة هي تجربة فريدة، ولذلك صممنا منصتنا لتكون رفيقك الأمثل في نسج هذه القصص وتشكيل تلك التجارب. "
+                 ,
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
 
               const SizedBox(height: 20),
 
               // القسم الثاني
-              const Text(
-                "حول الشركة",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // const Text(
+              //   "حول الشركة",
+              //   style: TextStyle(
+              //     fontSize: 16,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               const SizedBox(height: 8),
               const Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-                    "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "
-                    "when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
-                    "It has survived not only five centuries,",
+""                  ,
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
               const SizedBox(height: 8),
               const Text(
-                "It is a long established fact that a reader will be distracted by the readable content of a page "
-                    "when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution "
-                    "of letters, as opposed to using 'Content here, content here', making it look like readable English. "
-                    "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, "
-                    "and a search for 'lorem ipsum' will uncover many web sites still in their infancy.",
+                "                   ",
                 style: TextStyle(fontSize: 14, color: Colors.black87),
               ),
             ],
