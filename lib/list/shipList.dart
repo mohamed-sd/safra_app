@@ -203,7 +203,7 @@ class ShipList extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.flight_takeoff, color: Colors.black),
+                      Icon(Icons.directions_boat, color: Colors.black),
                       SizedBox(width: 8),
                       Text(airline,
                           style: TextStyle(
@@ -224,7 +224,7 @@ class ShipList extends StatelessWidget {
                     width: 40,
                     height: 40,
                     color: Colors.grey.shade300,
-                    child: Icon(Icons.flight, color: Colors.blue),
+                    child: Icon(Icons.directions_boat, color: Colors.blue),
                   ),
                   SizedBox(width: 16,),
                   Column(

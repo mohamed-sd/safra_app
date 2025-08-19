@@ -29,9 +29,9 @@ class _ShipSearchState extends State<ShipSearch> with SingleTickerProviderStateM
   final PageController _pageController = PageController();
   int _currentPage = 0;
   final List<String> imagePaths = [
-    "assets/search/flight.png",
-    "assets/search/flight.png",
-    "assets/search/flight.png",
+    "assets/search/ship.jpg",
+    "assets/search/ship.jpg",
+    "assets/search/ship.jpg",
   ];
 
   @override
@@ -133,7 +133,7 @@ class _ShipSearchState extends State<ShipSearch> with SingleTickerProviderStateM
                                 labelStyle: TextStyle(color: Colors.white),
                                 labelText: 'من',
                                 prefixIcon: Icon(
-                                  Icons.flight_takeoff,
+                                  Icons.directions_boat,
                                   color: Colors.blue,
                                 ),
                               ),
@@ -153,7 +153,7 @@ class _ShipSearchState extends State<ShipSearch> with SingleTickerProviderStateM
                                 labelStyle: TextStyle(color: Colors.white),
                                 labelText: 'الي',
                                 prefixIcon: Icon(
-                                  Icons.flight_land,
+                                  Icons.directions_boat,
                                   color: Colors.blue,
                                 ),
                               ),
@@ -230,7 +230,7 @@ class _ShipSearchState extends State<ShipSearch> with SingleTickerProviderStateM
                 width: double.infinity,
                 child: CustomActionButton(
                   text: " البحث عن باخرة ",
-                  icon: Icons.flight,
+                  icon: Icons.directions_boat,
                   backgroundColor: Appcolors.primary,
                   onPressed: () {
                     Navigator.push(

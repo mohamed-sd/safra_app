@@ -88,7 +88,7 @@ class _ShipConfirmState extends State<ShipConfirm>
                       child: Row(
                         children: [
                           Image.asset(
-                            'assets/search/flight.png',
+                            'assets/search/ship.jpg',
                             width: 40,
                             height: 40,
                             fit: BoxFit.cover,
@@ -141,13 +141,13 @@ class _ShipConfirmState extends State<ShipConfirm>
                           buildInfoItem(
                             "المغادرة من",
                             "KRT - ميناء بورسودان، السودان",
-                            icon: Icons.flight_takeoff,
+                            icon: Icons.directions_boat,
                           ),
                           SizedBox(height: 10),
                           buildInfoItem(
                             "الوصول إلى",
                             "NYL - ميناء جدة، السعوديه",
-                            icon: Icons.flight_land,
+                            icon: Icons.directions_boat,
                           ),
                         ],
                       ),

@@ -148,7 +148,7 @@ class _BannerSliderState extends State<HomeNav> {
                                             child: headerCard(
                                                 'بواخر',
                                                 Image.asset(
-                                                    'assets/homeHead/ic_more.png',
+                                                    'assets/homeHead/ic_shap.png',
                                                     height: 30)))),
                                     Expanded(
                                       child: InkWell(

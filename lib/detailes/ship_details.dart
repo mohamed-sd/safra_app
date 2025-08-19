@@ -60,7 +60,7 @@ class _ShipDetailsState extends State<ShipDetails>
                   Stack(
                     children: [
                       Image.asset(
-                        "assets/search/flight.png",
+                        "assets/search/ship.jpg",
                         width: double.infinity,
                         height: 250,
                         fit: BoxFit.cover,
@@ -100,7 +100,7 @@ class _ShipDetailsState extends State<ShipDetails>
                                 labelStyle: TextStyle(color: Colors.white),
                                 labelText: 'من الخرطوم',
                                 prefixIcon: Icon(
-                                  Icons.flight_takeoff,
+                                  Icons.directions_boat,
                                   color: Colors.blue,
                                 ),
                               ),
@@ -118,7 +118,7 @@ class _ShipDetailsState extends State<ShipDetails>
                                 labelStyle: TextStyle(color: Colors.white),
                                 labelText: 'الي جدة',
                                 prefixIcon: Icon(
-                                  Icons.flight_land,
+                                  Icons.directions_boat,
                                   color: Colors.blue,
                                 ),
                               ),
