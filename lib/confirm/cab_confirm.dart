@@ -247,7 +247,7 @@ class _FlightConfirmState extends State<CabConfirm>
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>CabTicket())
+                            MaterialPageRoute(builder: (context)=>Payment(flag: 'cab'))
                         );
                       },
                       child: Container(

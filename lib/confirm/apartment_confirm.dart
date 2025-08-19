@@ -273,7 +273,7 @@ class _ApartmentConfirmState extends State<ApartmentConfirm>
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>AppartmentTicket())
+                            MaterialPageRoute(builder: (context)=>Payment(flag: 'appart'))
                         );
                       },
                       child: Container(

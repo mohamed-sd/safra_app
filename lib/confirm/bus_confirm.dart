@@ -247,7 +247,7 @@ class _FlightConfirmState extends State<BusConfirm>
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>BusTicket())
+                            MaterialPageRoute(builder: (context)=>Payment(flag: 'bus'))
                         );
                       },
                       child: Container(

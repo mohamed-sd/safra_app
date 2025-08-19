@@ -245,7 +245,7 @@ class _FlightConfirmState extends State<FlightConfirm>
                     GestureDetector(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Payment()));
+                            MaterialPageRoute(builder: (context) => Payment(flag: 'flight',)));
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(vertical: 14),

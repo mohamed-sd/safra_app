@@ -248,7 +248,7 @@ class _HotelConfirmState extends State<HotelConfirm>
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>HotelTicket())
+                            MaterialPageRoute(builder: (context)=>Payment(flag: 'hotel'))
                         );
                       },
                       child: Container(

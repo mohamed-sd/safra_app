@@ -248,7 +248,7 @@ class _FlightConfirmState extends State<HaflaConfirm>
                       onTap: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context)=>HaflaTicket())
+                            MaterialPageRoute(builder: (context)=>Payment(flag: 'hafla'))
                         );
                       },
                       child: Container(

@@ -1,42 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:safra_app/tickets/appartment_ticket.dart';
+import 'package:safra_app/tickets/bus_ticket.dart';
+import 'package:safra_app/tickets/cab_ticket.dart';
 import 'package:safra_app/tickets/flight_ticket.dart';
+import 'package:safra_app/tickets/hafla_ticket.dart';
+import 'package:safra_app/tickets/hotel_ticket.dart';
+import 'package:safra_app/tickets/ship_ticket.dart';
+import 'package:safra_app/tickets/train_ticket.dart';
 
 import '../appColors.dart';
 
-class Payment extends StatefulWidget {
-  @override
-  _PaymentConfirmState createState() => _PaymentConfirmState();
-}
+class Payment extends StatelessWidget {
+  final String flag;
 
-class _PaymentConfirmState extends State<Payment>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<Offset> _slideAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 700),
+  const Payment({
+    super.key,
+    required this.flag,
+  });
+  static Route<dynamic> route(RouteSettings settings) {
+    final args = settings.arguments as Map<String, String>;
+    return MaterialPageRoute(
+      builder: (_) => Payment(
+        flag: args['flag'] ?? '',
+      ),
+      settings: settings,
     );
-
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
-
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.1), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -48,112 +36,102 @@ class _PaymentConfirmState extends State<Payment>
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: SlideTransition(
-          position: _slideAnimation,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // العنوان
+            Text(
+              'اختر طريقة الدفع',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+
+            // خيارات الدفع (مثال)
+            Container(
+              height: 140,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  PaymentCard(),
+                  PaymentCard(),
+                  PaymentCard(),
+                  PaymentCard(),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 24),
+
+            // نموذج (مثال)
+            TextField(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Appcolors.primary, // لون الإطار عند التركيز
+                  width: 2.0,
+                )),
+                labelText: 'الاسم على البطاقة',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Appcolors.primary, // لون الإطار عند التركيز
+                  width: 2.0,
+                )),
+                labelText: 'رقم البطاقة',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 16),
+            Row(
               children: [
-                // العنوان
-                Text(
-                  'اختر طريقة الدفع',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Appcolors.primary, // لون الإطار عند التركيز
+                        width: 2.0,
+                      )),
+                      labelText: 'MM/YY',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    keyboardType: TextInputType.datetime,
                   ),
                 ),
-                SizedBox(height: 16),
-
-                // خيارات الدفع (مثال)
-                Container(
-                  height: 140,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      PaymentCard(),
-                      PaymentCard(),
-                      PaymentCard(),
-                      PaymentCard(),
-                    ],
+                SizedBox(width: 12),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Appcolors.primary, // لون الإطار عند التركيز
+                        width: 2.0,
+                      )),
+                      labelText: 'CVV',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    keyboardType: TextInputType.number,
                   ),
                 ),
-
-                SizedBox(height: 24),
-
-                // نموذج (مثال)
-                TextField(
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Appcolors.primary, // لون الإطار عند التركيز
-                          width: 2.0,
-                        )
-                    ),
-                    labelText: 'الاسم على البطاقة',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                ),
-                SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Appcolors.primary, // لون الإطار عند التركيز
-                          width: 2.0,
-                        )
-                    ),
-                    labelText: 'رقم البطاقة',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12)),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Appcolors.primary, // لون الإطار عند التركيز
-                                width: 2.0,
-                              )
-                          ),
-                          labelText: 'MM/YY',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                        ),
-                        keyboardType: TextInputType.datetime,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Appcolors.primary, // لون الإطار عند التركيز
-                                width: 2.0,
-                              )
-                          ),
-                          labelText: 'CVV',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 80), // حتى لا يختفي خلف الزر
               ],
             ),
-          ),
+            SizedBox(height: 80), // حتى لا يختفي خلف الزر
+          ],
         ),
       ),
       bottomNavigationBar: SafeArea(
@@ -178,7 +156,32 @@ class _PaymentConfirmState extends State<Payment>
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>FlightTicket()));
+              if (flag == "flight") {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FlightTicket()));
+              } else if (flag == "ship"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShipTicket()));
+              }
+              else if (flag == "train"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TrainTicket()));
+              }else if (flag == "bus"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BusTicket()));
+              }else if (flag == "hafla"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HaflaTicket()));
+              }else if (flag == "cab"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CabTicket()));
+              }else if (flag == "hotel"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HotelTicket()));
+              }else if (flag == "appart"){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AppartmentTicket()));
+              }
             },
             child: Center(
               child: Text(
@@ -216,5 +219,4 @@ class _PaymentConfirmState extends State<Payment>
       ),
     );
   }
-
 }
