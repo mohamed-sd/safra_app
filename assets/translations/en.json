@@ -1,0 +1,16 @@
+{
+  "hello": "Hello",
+  "welcome": "Welcome to our app",
+  "change_lang": "Change Language",
+  "welcome_title": "Welcome to Safra!",
+  "welcome_subtitle": "Log in to start your journey with us",
+  "email": "Email",
+  "password": "Password",
+  "forgot_password": "Forgot your password?",
+  "login": "Login",
+  "no_account": "Don't have an account?",
+  "create_account": "Create a new account",
+  "or_login_with": "Or login with",
+  "login_google": "Login with Google",
+  "login_facebook": "Login with Facebook"
+}

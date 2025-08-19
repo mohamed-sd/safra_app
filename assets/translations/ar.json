@@ -1,0 +1,16 @@
+{
+  "hello": "مرحبا",
+  "welcome": "أهلاً بك في تطبيقنا",
+  "change_lang": "تغيير اللغة",
+  "welcome_title": "مرحباً بك في سفرة!",
+  "welcome_subtitle": "سجل دخولك لتبدأ رحلتك معنا",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgot_password": "نسيت كلمة المرور؟",
+  "login": "تسجيل الدخول",
+  "no_account": "ليس لديك حساب؟",
+  "create_account": "إنشاء حساب جديد",
+  "or_login_with": "أو الدخول عبر",
+  "login_google": "تسجيل الدخول عبر Google",
+  "login_facebook": "تسجيل الدخول عبر Facebook"
+}
